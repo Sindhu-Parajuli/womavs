@@ -14,7 +14,7 @@ import {useHistory} from 'react-router-dom';
 
 const Register = (props) => {
 
-    const {email, setemail, pass, setpass, name, setName, login, signup, click, setclick, checkUser, eError, pError} = props;
+    const {email, setemail, pass, setpass, name, setName, login, signup, click, setclick, checkUser, eError, pError, success} = props;
     const history = useHistory();
     console.log(history)
 
@@ -83,8 +83,7 @@ const Register = (props) => {
                 </div>
                 <div className="row mb-3 px-3">
                     <button className="btn btn-blue text-center"
-                            onClick={ () =>
-                                history.push('/dashboard')
+                            onClick={signup
                             }
                     >Register
                     </button>
@@ -100,7 +99,6 @@ const Register = (props) => {
     );
 
 }
-
 
 
 export default Register;

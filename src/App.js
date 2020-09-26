@@ -9,8 +9,10 @@ import ReactDOM from "react-dom";
 import capture from "./images/Capture.PNG";
 import Dashboard from "./dashboard";
 import Signin from "./Signin";
+import {useHistory} from "react-router-dom";
 
-const App =()=> {
+const App = () => {
+    const history = useHistory();
 
     const [acc, setacc] = useState('');
     const [name, setName] = useState('');
@@ -55,7 +57,7 @@ const App =()=> {
         if (pass.length < 6) setpError("Password too weak");
         if (email.includes("uta.edu")) {
             fire.auth().createUserWithEmailAndPassword(email, pass).then(
-                success(true)
+                test(true)
             ).catch(err => {
                 switch (err.code) {
                     case "auth/email-already-exists":
@@ -77,10 +79,16 @@ const App =()=> {
 
     }
 
+    const test = (bool) => {
+        if (bool) {
+            history.push("/dashboard");
+        }
+    }
+
     const checkUser = () => {
         fire.auth().onAuthStateChanged((acc) => {
             if (acc) {
-                setacc(""+acc);
+                setacc("" + acc);
 
                 // setting email and password to null, if user exists
                 setemail("");
@@ -109,7 +117,9 @@ const App =()=> {
             >
             </Register>
 
+{/*
             <Signin></Signin>
+*/}
 
         </div>
 

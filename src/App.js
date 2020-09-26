@@ -19,6 +19,7 @@ const App =()=> {
     const [eError, seteError] = useState('');
     const [pError, setpError] = useState('');
     const [exists, setExists] = useState('false');
+    const [success] = useState('false');
 
     const login = () => {
         //clearing errors
@@ -53,7 +54,9 @@ const App =()=> {
         setpError("");
         if (pass.length < 6) setpError("Password too weak");
         if (email.includes("uta.edu")) {
-            fire.auth().createUserWithEmailAndPassword(email, pass).catch(err => {
+            fire.auth().createUserWithEmailAndPassword(email, pass).then(
+                success(true)
+            ).catch(err => {
                 switch (err.code) {
                     case "auth/email-already-exists":
                     case "auth/invalid-email":

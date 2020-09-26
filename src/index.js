@@ -5,10 +5,11 @@ import App from './App';
 import 'bootstrap/dist/css/bootstrap.css'
 import * as firebase from "firebase";
 import * as serviceWorker from './serviceWorker';
+import RenderApp from "./RenderApp";
 
 
 
-ReactDOM.render(<App/>,document.getElementById("root"));
+ReactDOM.render(<RenderApp/>,document.getElementById("root"));
 
 
 

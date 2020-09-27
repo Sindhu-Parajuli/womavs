@@ -31,6 +31,7 @@ const Signin = () => {
         setpError("");
 
         if (email && pass) {
+            //This is not working, the signin with email and password part. Every random email and password goes through this
             fire.auth().signInWithEmailAndPassword(email, pass).then(
                 history.push("/dashboard")).catch(err => {
 

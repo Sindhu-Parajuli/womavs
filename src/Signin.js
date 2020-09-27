@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 
 import 'bootstrap/dist/css/bootstrap.css'
 import soc from './images/socialize.png'
@@ -6,10 +6,53 @@ import ct from './images/chatrooms.jpeg'
 import men from './images/mentor.jpg'
 import metoo from './images/me too.jpg'
 import Register from "./Register";
+import fire from "./fire";
+import {useHistory} from "react-router-dom";
 
-const Signin=(props)=> {
+const Signin = () => {
 
-    const {email,setemail,pass,setpass,login,click,checkUser,eError,pError}=props;
+    const [email, setemail] = useState('');
+    const [pass, setpass] = useState('');
+    const [acc, setacc] = useState('');
+    const [name, setName] = useState('');
+    const [eError, seteError] = useState('');
+    const [pError, setpError] = useState('');
+    const [exists, setExists] = useState('false');
+    const [success] = useState('false');
+    const history = useHistory();
+
+    const redirectToRegistrationPage = () => {
+        history.push("/register")
+    }
+
+    const login = () => {
+        //clearing errors
+        seteError("");
+        setpError("");
+
+        if (email && pass) {
+            fire.auth().signInWithEmailAndPassword(email, pass).then(
+                history.push("/dashboard")).catch(err => {
+
+                switch (err.code) {
+
+                    //email errors
+                    case "auth/invalid-email": //check if email is invalid
+                    case "auth/user-not-found": //check if user doesnot exist
+                        seteError(err.message);
+                        break;
+
+                    //password errors
+                    case  "auth/invalid-password":   //check for wrong password
+                        setpError(err.message);
+                        break;
+                }
+
+            })
+        } else seteError("Email and Password field required")
+
+    }
+
 
     return (
         <div className="row d-flex" style={{background: "rgb(236,240,241)"}}>
@@ -36,22 +79,21 @@ const Signin=(props)=> {
                         <h6 className="">Email Address</h6>
                     </label>
                     <input className="mb-4" type="text" name="email" required value={email}
-                           onChange={(e)=>setemail(e.target.value)}
+                           onChange={(e) => setemail(e.target.value)}
                            placeholder="Enter your UTA email"/>
                     <p className={"errorMsg"}
-                       style={{color:"red"}}>{eError}</p>
+                       style={{color: "red"}}>{eError}</p>
                 </div>
-
 
 
                 <div className="row px-3">
                     <label className="mb-1">
                         <h6 className="mb-0 text-sm">Password</h6>
                     </label>
-                    <input type="password" name="password"  required value={pass}
-                           onChange={(e)=>setpass(e.target.value)}
+                    <input type="password" name="password" required value={pass}
+                           onChange={(e) => setpass(e.target.value)}
                            placeholder="Enter Password"/>
-                    <p className={"errorMsg"} style={{color:"red"}}>{pError}</p>
+                    <p className={"errorMsg"} style={{color: "red"}}>{pError}</p>
 
                 </div>
 
@@ -59,10 +101,11 @@ const Signin=(props)=> {
                 <div className="row mb-3 px-3">
                     <button className="btn btn-blue text-center"
                             onClick={login}
-                    >Login</button>
+                    >Login
+                    </button>
                 </div>
                 <div className="row mb-4 px-3"><small className="font-weight-bold">Not a User yet? <button
-                    className="text-danger " ></button>Register</small></div>
+                    className="text-danger " onClick={redirectToRegistrationPage}></button>Register</small></div>
             </div>
         </div>
 

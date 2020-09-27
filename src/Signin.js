@@ -22,7 +22,7 @@ const Signin = () => {
     const history = useHistory();
 
     const redirectToRegistrationPage = () => {
-        history.push("/register")
+        history.push("/")
     }
 
     const login = () => {

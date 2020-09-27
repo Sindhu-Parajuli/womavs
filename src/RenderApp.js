@@ -5,6 +5,8 @@ import 'bootstrap/dist/css/bootstrap.css'
 import App from "./App";
 import {BrowserRouter, Route} from "react-router-dom";
 import Dashboard from "./dashboard";
+import Signin from "./Signin";
+import Register from "./Register";
 
 export class RenderApp extends React.Component {
     renderMain() {
@@ -12,7 +14,9 @@ export class RenderApp extends React.Component {
             <BrowserRouter>
                 <Fragment>
                     <Route path={"/"} exact component={App}/>
+                    <Route path={"/register"} exact component={Register}/>
                     <Route path={"/dashboard"} exact component={Dashboard}/>
+                    <Route path={"/signin"} exact component={Signin}/>
                 </Fragment>
             </BrowserRouter>
         );

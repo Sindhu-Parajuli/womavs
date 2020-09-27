@@ -13,7 +13,7 @@ import App from "./App";
 import {useHistory} from 'react-router-dom';
 
 const Register = (props) => {
-
+    console.log(props)
     const {email, setemail, pass, setpass, name, setName, login, signup, click, setclick, checkUser, eError, pError, success} = props;
     const history = useHistory();
     console.log(history)
@@ -91,8 +91,8 @@ const Register = (props) => {
 
                 <div className="row mb-4 px-3">
                     <small className="font-weight-bold">Already a User?
-                        <button onclick
-                                className="text-danger" type={"button"}>Login</button></small></div>
+                        <button
+                                className="text-danger" type={"button"} onClick={login}>Login</button></small></div>
             </div>
         </div>
 

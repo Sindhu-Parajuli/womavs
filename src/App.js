@@ -23,29 +23,8 @@ const App = () => {
     const [exists, setExists] = useState('false');
     const [success] = useState('false');
 
-    const login = () => {
-        //clearing errors
-        seteError("");
-        setpError("");
-
-        fire.auth().signInWithEmailAndPassword(email, pass).catch(err => {
-
-            switch (err.code) {
-
-                //email errors
-                case "auth/invalid-email": //check if email is invalid
-                case "auth/user-not-found": //check if user doesnot exist
-                    seteError(err.message);
-                    break;
-
-                //password errors
-                case  "auth/invalid-password":   //check for wrong password
-                    setpError(err.message);
-                    break;
-            }
-
-        })
-
+    const redirectToLoginPage = () => {
+        history.push("/Signin")
     }
 
 
@@ -57,7 +36,7 @@ const App = () => {
         if (pass.length < 6) setpError("Password too weak");
         if (email.includes("uta.edu")) {
             fire.auth().createUserWithEmailAndPassword(email, pass).then(
-                test(true)
+                history.push("/dashboard")
             ).catch(err => {
                 switch (err.code) {
                     case "auth/email-already-exists":
@@ -77,12 +56,6 @@ const App = () => {
     const logout = () => {
         fire.auth().signOut();
 
-    }
-
-    const test = (bool) => {
-        if (bool) {
-            history.push("/dashboard");
-        }
     }
 
     const checkUser = () => {
@@ -112,12 +85,12 @@ const App = () => {
             </div>
             <Register email={email} setemail={setemail} pass={pass} setpass={setpass} name={name} setName={setName}
                       checkUser={checkUser}
-                      login={login} signup={signup}
+                      login={redirectToLoginPage} signup={signup}
                       eError={eError} pError={pError}
             >
             </Register>
 
-{/*
+            {/*
             <Signin></Signin>
 */}
 

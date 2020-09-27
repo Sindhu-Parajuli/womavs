@@ -1,6 +1,6 @@
 upgrade to latest ver of npm(mine is 6.13.4)
 
-remove node_modules folder and if its already there(if manual delete fails, try rm -rf node_modules)
+remove node_modules folder if its already there(if manual delete fails, try rm -rf node_modules)
 
 npm install
 

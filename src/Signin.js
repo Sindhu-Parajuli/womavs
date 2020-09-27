@@ -8,6 +8,10 @@ import metoo from './images/me too.jpg'
 import Register from "./Register";
 import fire from "./fire";
 import {useHistory} from "react-router-dom";
+import capture from "./images/Capture.PNG";
+
+
+
 
 const Signin = () => {
 
@@ -21,7 +25,7 @@ const Signin = () => {
     const [success] = useState('false');
     const history = useHistory();
 
-    const redirectToRegistrationPage = () => {
+    const redirectToPage = () => {
         history.push("/")
     }
 
@@ -32,8 +36,7 @@ const Signin = () => {
 
         if (email && pass) {
             //This is not working, the signin with email and password part. Every random email and password goes through this
-            fire.auth().signInWithEmailAndPassword(email, pass).then(
-                history.push("/dashboard")).catch(err => {
+            fire.auth().signInWithEmailAndPassword(email, pass).catch(err => {
 
                 switch (err.code) {
 
@@ -50,12 +53,35 @@ const Signin = () => {
                 }
 
             })
+
+            fire.auth().onAuthStateChanged((usr) => {
+                if (usr) {
+                    history.push("/dashboard")
+
+                    // setting email and password to null, if user exists
+                    setemail("");
+                    setpass("");
+                    setName("");
+
+                } else setacc("");
+
+            })
+
         } else seteError("Email and Password field required")
+
 
     }
 
-
     return (
+       <div>
+
+           <div className="hdr">
+               <header>
+                   <img id={"lo"} src={capture} height={75} width={100} className="rounded float-left" alt="..."/>
+                   <h1 id={"head"}>Community For Female Mavericks</h1>
+               </header>
+
+           </div>
         <div className="row d-flex" style={{background: "rgb(236,240,241)"}}>
             <div className="col-lg-6">
 
@@ -104,11 +130,16 @@ const Signin = () => {
                             onClick={login}
                     >Login
                     </button>
+
+
+                    <a href="/forgot"  style={{color:"black"}}>Forgot Password?</a>
+
                 </div>
                 <div className="row mb-4 px-3"><small className="font-weight-bold">Not a User yet? <button
-                    className="text-danger " onClick={redirectToRegistrationPage}></button>Register</small></div>
+                    className="text-danger " onClick={redirectToPage}>Register</button></small></div>
             </div>
         </div>
+       </div>
 
     );
 

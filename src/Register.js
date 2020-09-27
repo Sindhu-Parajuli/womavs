@@ -14,13 +14,14 @@ import {useHistory} from 'react-router-dom';
 
 const Register = (props) => {
     console.log(props)
-    const {email, setemail, pass, setpass, name, setName, login, signup, click, setclick, checkUser, eError, pError, success} = props;
+    const {email, setemail, pass, setpass, name, setName, login, signup, eError, pError, success} = props;
     const history = useHistory();
     console.log(history)
 
 
     return (
 
+        <div>
         <div className="row d-flex" style={{background: "rgb(236,240,241)"}}>
             <div className="col-lg-6">
 
@@ -94,6 +95,7 @@ const Register = (props) => {
                         <button
                                 className="text-danger" type={"button"} onClick={login}>Login</button></small></div>
             </div>
+        </div>
         </div>
 
     );

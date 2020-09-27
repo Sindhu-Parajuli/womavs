@@ -14,14 +14,13 @@ import {useHistory} from "react-router-dom";
 const App = () => {
     const history = useHistory();
 
-    const [acc, setacc] = useState('');
+
     const [name, setName] = useState('');
     const [email, setemail] = useState('');
     const [pass, setpass] = useState('');
     const [eError, seteError] = useState('');
     const [pError, setpError] = useState('');
-    const [exists, setExists] = useState('false');
-    const [success] = useState('false');
+
 
     const redirectToLoginPage = () => {
         history.push("/Signin")
@@ -33,13 +32,15 @@ const App = () => {
         //clearing errors
         seteError("");
         setpError("");
-        if (pass.length < 6) setpError("Password too weak");
+        if (pass.length < 6) setpError("Password must be 6 characters.");
         if (email.includes("uta.edu")) {
             fire.auth().createUserWithEmailAndPassword(email, pass).then(
                 history.push("/dashboard")
             ).catch(err => {
                 switch (err.code) {
                     case "auth/email-already-exists":
+                        seteError(err.message)
+                        break;
                     case "auth/invalid-email":
                         seteError(err.message);
                         break;
@@ -53,26 +54,8 @@ const App = () => {
         } else seteError("UTA email required.")
     }
 
-    const logout = () => {
-        fire.auth().signOut();
 
-    }
 
-    const checkUser = () => {
-        fire.auth().onAuthStateChanged((acc) => {
-            if (acc) {
-                setacc("" + acc);
-
-                // setting email and password to null, if user exists
-                setemail("");
-                setpass("");
-                setName("");
-
-            } else setacc("");
-
-        })
-
-    }
 
     return (
         <div>
@@ -84,7 +67,6 @@ const App = () => {
 
             </div>
             <Register email={email} setemail={setemail} pass={pass} setpass={setpass} name={name} setName={setName}
-                      checkUser={checkUser}
                       login={redirectToLoginPage} signup={signup}
                       eError={eError} pError={pError}
             >

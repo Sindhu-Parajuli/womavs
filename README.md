@@ -1,7 +1,11 @@
 upgrade to latest ver of npm
+
 remove node_modules folder and if its already there(if manual delete fails, try rm -rf node_modules)
+
 npm install
+
 npm start
+
 ENJOYO!
 
 

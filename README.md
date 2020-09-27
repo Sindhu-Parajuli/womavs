@@ -1,3 +1,10 @@
+upgrade to latest ver of npm
+remove node_modules folder and if its already there(if manual delete fails, try rm -rf node_modules)
+npm install
+npm start
+ENJOYO!
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts

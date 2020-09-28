@@ -34,7 +34,7 @@ const Signin = () => {
         setpError("");
 
         if (email && pass) {
-            //This is not working, the signin with email and password part. Every random email and password goes through this
+            //Using Firebase function to authorize to sign in
             firebase.auth().signInWithEmailAndPassword(email, pass).catch(err => {
 
                 switch (err.code) {

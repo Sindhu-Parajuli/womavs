@@ -6,7 +6,7 @@ import ct from './images/chatrooms.jpeg'
 import men from './images/mentor.jpg'
 import metoo from './images/me too.jpg'
 import Register from "./Register";
-import fire from "./fire";
+import firebase from "./firebase.js";
 import {useHistory} from "react-router-dom";
 import capture from "./images/Capture.PNG";
 
@@ -36,7 +36,7 @@ const Signin = () => {
 
         if (email && pass) {
             //This is not working, the signin with email and password part. Every random email and password goes through this
-            fire.auth().signInWithEmailAndPassword(email, pass).catch(err => {
+            firebase.auth().signInWithEmailAndPassword(email, pass).catch(err => {
 
                 switch (err.code) {
 
@@ -54,7 +54,7 @@ const Signin = () => {
 
             })
 
-            fire.auth().onAuthStateChanged((usr) => {
+            firebase.auth().onAuthStateChanged((usr) => {
                 if (usr) {
                     history.push("/dashboard")
 

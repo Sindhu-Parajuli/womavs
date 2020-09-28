@@ -2,12 +2,12 @@ import React, {useState, Component} from 'react';
 import logo from './logo.svg';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.css'
-import fire from "./fire";
+import firebase from "./firebase.js";
 import Register from "./Register";
 import hdr from "./css/hdr.css"
 import ReactDOM from "react-dom";
 import capture from "./images/Capture.PNG";
-import Dashboard from "./dashboard";
+import Homepage from "./Homepage";
 import Signin from "./Signin";
 import {useHistory} from "react-router-dom";
 
@@ -32,10 +32,10 @@ const App = () => {
         //clearing errors
         seteError("");
         setpError("");
-        if (pass.length < 6) setpError("Password must be 6 characters.");
+        if (pass.length < 6) setpError("Password must be at least 6 characters.");
         if (email.includes("uta.edu")) {
-            fire.auth().createUserWithEmailAndPassword(email, pass).then(
-                history.push("/dashboard")
+            firebase.auth().createUserWithEmailAndPassword(email, pass).then(
+                history.push("/homepage")
             ).catch(err => {
                 switch (err.code) {
                     case "auth/email-already-exists":

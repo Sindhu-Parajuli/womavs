@@ -74,7 +74,6 @@ const Signin = () => {
 
     return (
        <div>
-
            <div className="hdr">
                <header>
                    <img id={"lo"} src={capture} height={75} width={100} className="rounded float-left" alt="..."/>
@@ -132,7 +131,7 @@ const Signin = () => {
                     </button>
 
 
-                    <a href="/forgot"  style={{color:"black"}}>Forgot Password?</a>
+                    <a href="./forgotpassword"  style={{color:"black"}}>Forgot Password?</a>
 
                 </div>
                 <div className="row mb-4 px-3"><small className="font-weight-bold">Not a User yet? <button

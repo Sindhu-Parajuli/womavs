@@ -24,7 +24,7 @@ const Homepage=(logout)=>{
                     <img id={"lo"} src={capture} height={75} width={100} className="rounded float-left" alt="..."/></a>
             </div>
             <ul className="nav navbar-nav">
-                <li className="active"><a href="/dashboard" style={{color:"white"}}>Home</a></li>
+                <li className="active"><a href="/homepage" style={{color:"white"}}>Home</a></li>
                 <li><a href="/chatrooms"  style={{color:"white"}}>Chatrooms</a></li>
                 <li><a href="/resources" style={{color:"white"}}>Resources</a></li>
                 <li><a onClick={lout} style={{color:"white"}}>Logout</a></li>

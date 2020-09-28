@@ -56,7 +56,7 @@ const Signin = () => {
 
             firebase.auth().onAuthStateChanged((usr) => {
                 if (usr) {
-                    history.push("/dashboard")
+                    history.push("/homepage")
 
                     // setting email and password to null, if user exists
                     setemail("");

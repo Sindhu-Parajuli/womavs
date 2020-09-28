@@ -15,46 +15,6 @@ const App = () => {
     const history = useHistory();
 
 
-    const [name, setName] = useState('');
-    const [email, setemail] = useState('');
-    const [pass, setpass] = useState('');
-    const [eError, seteError] = useState('');
-    const [pError, setpError] = useState('');
-
-
-    const redirectToLoginPage = () => {
-        history.push("/Signin")
-    }
-
-
-    const signup = () => {
-
-        //clearing errors
-        seteError("");
-        setpError("");
-        if (pass.length < 6) setpError("Password must be at least 6 characters.");
-        if (email.includes("uta.edu")) {
-            firebase.auth().createUserWithEmailAndPassword(email, pass).then(
-                history.push("/homepage")
-            ).catch(err => {
-                switch (err.code) {
-                    case "auth/email-already-exists":
-                        seteError(err.message)
-                        break;
-                    case "auth/invalid-email":
-                        seteError(err.message);
-                        break;
-                    case "auth/weak-password":
-                        setpError(err.message);
-                        break;
-
-
-                }
-            })
-        } else seteError("UTA email required.")
-    }
-
-
 
 
     return (
@@ -66,16 +26,7 @@ const App = () => {
                 </header>
 
             </div>
-            <Register email={email} setemail={setemail} pass={pass} setpass={setpass} name={name} setName={setName}
-                      login={redirectToLoginPage} signup={signup}
-                      eError={eError} pError={pError}
-            >
-            </Register>
-
-            {/*
-            <Signin></Signin>
-*/}
-
+            <Register/>
         </div>
 
 

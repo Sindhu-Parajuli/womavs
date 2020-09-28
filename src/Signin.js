@@ -1,5 +1,4 @@
 import React, {useState} from "react";
-
 import 'bootstrap/dist/css/bootstrap.css'
 import soc from './images/socialize.png'
 import ct from './images/chatrooms.jpeg'
@@ -56,7 +55,7 @@ const Signin = () => {
 
             firebase.auth().onAuthStateChanged((usr) => {
                 if (usr) {
-                    history.push("/dashboard")
+                    history.push("/homepage")
 
                     // setting email and password to null, if user exists
                     setemail("");

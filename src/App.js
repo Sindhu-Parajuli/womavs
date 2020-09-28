@@ -14,9 +14,6 @@ import {useHistory} from "react-router-dom";
 const App = () => {
     const history = useHistory();
 
-
-
-
     return (
         <div>
             <div className="hdr">

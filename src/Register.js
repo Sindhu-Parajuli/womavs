@@ -34,22 +34,25 @@ const Register = (props) => {
         history.push("/Signin")
     }
 
-
+//check input values for errors when users click sign up/register button
     const signup = () => {
         //clearing errors
         seteError("");
         setpError("");
         setcError("")
         var errorcheck = false;
+        //password error check
         if (pass.length < 6) {
             setpError("Password must be at least 6 characters.");
             errorcheck=true;
             console.log(errorcheck)
         }
+        //checkbox error check
         if(checkbox.femaleAgr == false) {
             setcError("Agreement terms must be met to register.")
             errorcheck=true;
         }
+        //email errorcheck
         if (email.includes("uta.edu")) {
             if( errorcheck == false){
                 firebase.auth().createUserWithEmailAndPassword(email, pass)
@@ -78,7 +81,7 @@ const Register = (props) => {
     }
 
 
-
+//get new bool when the checkbox is checked or not
     const checkboxChange = (event) => {
         setCheck({ ...checkbox, [event.target.name]: event.target.checked });
 
@@ -136,7 +139,6 @@ const Register = (props) => {
                            onChange={(e) => setPass(e.target.value)}
                            placeholder="Enter Password"/>
                     <p className={"errorMsg"} style={{color: "red"}}>{pError}</p>
-
                 </div>
 
                 <div className="row px-3 mb-4">

@@ -1,5 +1,4 @@
 import React, {useState} from "react";
-
 import 'bootstrap/dist/css/bootstrap.css'
 import soc from './images/socialize.png'
 import ct from './images/chatrooms.jpeg'

@@ -8,7 +8,7 @@ import firebase from "./firebase";
 const Homepage=(logout)=>{
     const history = useHistory();
 
-    const lout = () => {
+    const signout = () => {
        firebase.auth().signOut().then(history.push("/Signin"));
 
 
@@ -27,7 +27,7 @@ const Homepage=(logout)=>{
                 <li className="active"><a href="/homepage" style={{color:"white"}}>Home</a></li>
                 <li><a href="/chatrooms"  style={{color:"white"}}>Chatrooms</a></li>
                 <li><a href="/resources" style={{color:"white"}}>Resources</a></li>
-                <li><a onClick={lout} style={{color:"white"}}>Logout</a></li>
+                <li><a onClick={signout} style={{color:"white"}}>Logout</a></li>
 
             </ul>
         </div>

@@ -71,7 +71,6 @@ const ForgotPassword  = () => {
                     </div>
                 </div>
             </div>
-                {reset!=1?(
                 <div className="card2 card border-0 px-4 py-5">
                     <div className="row px-3">
                         <label className="mb-1">
@@ -90,46 +89,9 @@ const ForgotPassword  = () => {
                         </button>
                     </div>
                 </div>
-                    ):(
-                    <div>
-                    <div className="card2 card border-0 px-4 py-5">
-                        <div className="row px-3">
-                            <label className="mb-1">
-                                <h6 className="">Reset Code</h6>
-                                <p>Check your email for the password reset code</p>
-                            </label>
-                            <input className="mb-4" type="text" name="code" required value={code}
-                                   onChange={(e) => setcode(e.target.value)}
-                                   placeholder="Enter your verification code"/>
-                            <p className={"errorMsg"}
-                               style={{color: "red"}}>{cError}</p>
-                        </div>
-                        <div className="card2 card border-0 px-4 py-5">
-                            <div className="row px-3">
-                                <label className="mb-1">
-                                    <h6 >New Password</h6>
-                                </label>
-                                <input className="mb-4" type="text" name="code" required value={password}
-                                       onChange={(e) => setpassword(e.target.value)}
-                                       placeholder="Enter your new password"/>
-                                <p className={"errorMsg"}
-                                   style={{color: "red"}}>{pError}</p>
-                            </div>
-                        </div>
-                        <div className="row mb-3 px-3">
-                            <button className="btn btn-blue text-center"
-                                    onClick={resetpassword}
-                            >Reset Password
-                            </button>
-                        </div>
-                    </div>
-                    </div>
-                        )};
                     <div className="row mb-4 px-3"><small className="font-weight-bold">Not a User yet? <button
                         className="text-danger " onClick={redirectToPage}>Register</button></small>
                     </div>
-
-
         </div>
                 );
 }

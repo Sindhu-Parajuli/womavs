@@ -1,5 +1,4 @@
 import React, {useState} from "react";
-
 import 'bootstrap/dist/css/bootstrap.css'
 import soc from './images/socialize.png'
 import ct from './images/chatrooms.jpeg'
@@ -35,7 +34,7 @@ const Signin = () => {
         setpError("");
 
         if (email && pass) {
-            //This is not working, the signin with email and password part. Every random email and password goes through this
+            //Using Firebase function to authorize to sign in
             firebase.auth().signInWithEmailAndPassword(email, pass).catch(err => {
 
                 switch (err.code) {
@@ -56,7 +55,7 @@ const Signin = () => {
 
             firebase.auth().onAuthStateChanged((usr) => {
                 if (usr) {
-                    history.push("/dashboard")
+                    history.push("/homepage")
 
                     // setting email and password to null, if user exists
                     setemail("");

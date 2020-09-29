@@ -13,6 +13,7 @@ const ForgotPassword  = () => {
     const [code, setcode] = useState('');
     const [eError, seteError] = useState('');
     const [pError, setpError] = useState('');
+    const [cError, setcError] = useState('');
     const [reset, setStep] = useState(0);
     const [success] = useState('false');
     const history = useHistory();
@@ -21,31 +22,31 @@ const ForgotPassword  = () => {
         history.push("/")
     }
 
-    const resetpassword = () => {}
-    const verifpassword = () => {
+    const resetpassword = () => {
         console.log(email)
         //clearing errors
         seteError("");
         if(email){
-        firebase.auth().sendPasswordResetEmail(
-            email, null)
-            .then(function () {
-                // Password reset email sent.
-            })
-            .catch(function (error) {
-                switch (error.code) {
+            firebase.auth().sendPasswordResetEmail(
+                email, null)
+                .then(function () {
+                    history.push("/signin");
+                    // Password reset email sent.
+                })
+                .catch(function (error) {
+                    switch (error.code) {
 
-                    //email errors
-                    case "auth/invalid-email": //check if email is invalid
-                    case "auth/user-not-found": //check if user doesnot exist
-                        seteError(error.message);
-                        break;
+                        //email errors
+                        case "auth/invalid-email": //check if email is invalid
+                        case "auth/user-not-found": //check if user doesnot exist
+                            seteError(error.message);
+                            break;
 
-                }
+                    }
 
-            });
-}
-    }
+                });
+        }}
+
 
 
 
@@ -69,9 +70,8 @@ const ForgotPassword  = () => {
 
                     </div>
                 </div>
-
-                {user==0?(
-
+            </div>
+                {reset!=1?(
                 <div className="card2 card border-0 px-4 py-5">
                     <div className="row px-3">
                         <label className="mb-1">
@@ -89,7 +89,9 @@ const ForgotPassword  = () => {
                         >Reset Password
                         </button>
                     </div>
+                </div>
                     ):(
+                    <div>
                     <div className="card2 card border-0 px-4 py-5">
                         <div className="row px-3">
                             <label className="mb-1">
@@ -113,22 +115,23 @@ const ForgotPassword  = () => {
                                 <p className={"errorMsg"}
                                    style={{color: "red"}}>{pError}</p>
                             </div>
+                        </div>
                         <div className="row mb-3 px-3">
                             <button className="btn btn-blue text-center"
                                     onClick={resetpassword}
                             >Reset Password
                             </button>
                         </div>
-
-                        )}
+                    </div>
+                    </div>
+                        )};
                     <div className="row mb-4 px-3"><small className="font-weight-bold">Not a User yet? <button
-                        className="text-danger " onClick={redirectToPage}>Register</button></small></div>
-                </div>
-            </div>
+                        className="text-danger " onClick={redirectToPage}>Register</button></small>
+                    </div>
+
+
         </div>
-
-    );
-
+                );
 }
 
 export default ForgotPassword;

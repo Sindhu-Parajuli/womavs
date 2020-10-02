@@ -1,5 +1,4 @@
 import React, {useState, Component, Fragment} from 'react';
-import logo from './logo.svg';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.css'
 import App from "./App";

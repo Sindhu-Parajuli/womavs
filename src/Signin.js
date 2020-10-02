@@ -85,16 +85,14 @@ const Signin = () => {
 
                 <div className="row px-3 justify-content-center mt-4 mb-5 border-line">
 
-                    <img src={soc} className="image"
+                    <img src={soc} className="image" alt="..."
                          style={{marginBottom: 20, marginRight: 50, height: 200, width: 200}}/>
-                    <img src={men} className="image"
+                    <img src={men} className="image" alt="..."
                          style={{marginBottom: 20, marginRight: 50, height: 200, width: 200}}/>
-                    <img src={ct} className="image"
+                    <img src={ct} className="image" alt="..."
                          style={{marginBottom: 20, marginRight: 50, height: 200, width: 200}}/>
-                    <img src={metoo} className="image"
+                    <img src={metoo} className="image" alt="..."
                          style={{marginBottom: 20, marginRight: 50, height: 200, width: 200}}/>
-
-
                 </div>
             </div>
 

@@ -30,8 +30,8 @@ const ForgotPassword  = () => {
             firebase.auth().sendPasswordResetEmail(
                 email, actionCodeSettings)
                 .then(function () {
-                    //history.push("/homepage");
                     // Password reset email sent.
+                    alert("Reset link sent to email")
                 })
                 .catch(function (error) {
                     switch (error.code) {

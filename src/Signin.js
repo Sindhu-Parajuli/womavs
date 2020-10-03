@@ -73,7 +73,6 @@ const Signin = () => {
 
     return (
        <div>
-
            <div className="hdr">
                <header>
                    <img id={"lo"} src={capture} height={75} width={100} className="rounded float-left" alt="..."/>
@@ -86,16 +85,14 @@ const Signin = () => {
 
                 <div className="row px-3 justify-content-center mt-4 mb-5 border-line">
 
-                    <img src={soc} className="image"
+                    <img src={soc} className="image" alt="..."
                          style={{marginBottom: 20, marginRight: 50, height: 200, width: 200}}/>
-                    <img src={men} className="image"
+                    <img src={men} className="image" alt="..."
                          style={{marginBottom: 20, marginRight: 50, height: 200, width: 200}}/>
-                    <img src={ct} className="image"
+                    <img src={ct} className="image" alt="..."
                          style={{marginBottom: 20, marginRight: 50, height: 200, width: 200}}/>
-                    <img src={metoo} className="image"
+                    <img src={metoo} className="image" alt="..."
                          style={{marginBottom: 20, marginRight: 50, height: 200, width: 200}}/>
-
-
                 </div>
             </div>
 
@@ -131,7 +128,7 @@ const Signin = () => {
                     </button>
 
 
-                    <a href="/forgot"  style={{color:"black"}}>Forgot Password?</a>
+                    <a href="./forgotpassword"  style={{color:"black"}}>Forgot Password?</a>
 
                 </div>
                 <div className="row mb-4 px-3"><small className="font-weight-bold">Not a User yet? <button

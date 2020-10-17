@@ -24,7 +24,7 @@ class Channels extends React.Component {
             <Menu.Menu style={{ paddingBottom: "2em" , paddingTop:"3em"} }>
                 <Menu.Item>
           <span>
-            <Icon name="exchange" /> CHANNELS
+            <Icon name="exchange" /> ROOMS
           </span>{" "}
                     ({channels.length}) <Icon name="add" onClick={this.openModal} />
                 </Menu.Item>
@@ -33,14 +33,14 @@ class Channels extends React.Component {
             </Menu.Menu>
 
             <Modal basic open={modal} onClose={this.closeModal}>
-                <Modal.Header> Add a Channel </Modal.Header>
+                <Modal.Header> Add a Room </Modal.Header>
                 <Modal.Content>
                 <Form>
                     <Form.Field>
                      <Input
                          fluid
-                         label="Name of Channel"
-                         name = "channelName"
+                         label="Name of Room"
+                         name = "roomName"
                          onChange={this.handleChange}
                        />
 
@@ -49,8 +49,8 @@ class Channels extends React.Component {
                     <Form.Field>
                         <Input
                             fluid
-                            label="About the Channel"
-                            name = "channelDetails"
+                            label="About the Room"
+                            name = "roomDetails"
                             onChange={this.handleChange}
                         />
 

@@ -28,6 +28,11 @@ const Signin = () => {
         history.push("/")
     }
 
+
+    const redirectTochatroomPage = () => {
+        history.push("/Chatroom")
+    }
+
     const login = () => {
         //clearing errors
         seteError("");
@@ -132,7 +137,7 @@ const Signin = () => {
 
                 </div>
                 <div className="row mb-4 px-3"><small className="font-weight-bold">Not a User yet? <button
-                    className="text-danger " onClick={redirectToPage}>Register</button></small></div>
+                    className="text-danger " onClick={redirectTochatroomPage}>Registers</button></small></div>
             </div>
         </div>
        </div>

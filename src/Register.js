@@ -33,6 +33,7 @@ const Register = (props) => {
     const redirectToSigninPage = () => {
         history.push("/Signin")
     }
+
     const redirectTochatroomPage = () => {
         history.push("/Chatroom")
     }
@@ -163,14 +164,14 @@ const Register = (props) => {
                 <div className="row mb-3 px-3">
                     <button className="btn btn-blue text-center"
                             onClick={signup}
-                    >Registers
+                    >Register
                     </button>
                 </div>
 
                 <div className="row mb-4 px-3">
                     <small className="font-weight-bold">Already a User?
                         <button
-                                className="text-danger" type={"button"} onClick={redirectTochatroomPage}>Login</button></small></div>
+                                className="text-danger" type={"button"} onClick={redirectToSigninPage}>Login</button></small></div>
             </div>
         </div>
         </div>

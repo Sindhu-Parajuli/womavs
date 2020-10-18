@@ -12,6 +12,12 @@ const Homepage=(logout)=>{
        firebase.auth().signOut().then(history.push("/Signin"));
 
 
+
+
+    }
+
+    const redirectTochatroomPage = () => {
+        history.push("/Chatroom")
     }
 
     return(
@@ -25,7 +31,8 @@ const Homepage=(logout)=>{
             </div>
             <ul className="nav navbar-nav">
                 <li className="active"><a href="/homepage" style={{color:"white"}}>Home</a></li>
-                <li><a href="/chatrooms"  style={{color:"white"}}>Chatrooms</a></li>
+
+                <li><a onClick={redirectTochatroomPage}  style={{color:"white"}}>Chatrooms</a></li>
                 <li><a href="/resources" style={{color:"white"}}>Resources</a></li>
                 <li><a onClick={signout} style={{color:"white"}}>Logout</a></li>
 

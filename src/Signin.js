@@ -28,6 +28,10 @@ const Signin = () => {
         history.push("/")
     }
 
+    const redirectTochatroomPage = () => {
+        history.push("/Chatroom")
+    }
+
     const login = () => {
         //clearing errors
         seteError("");

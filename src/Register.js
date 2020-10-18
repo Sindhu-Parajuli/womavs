@@ -34,6 +34,10 @@ const Register = (props) => {
         history.push("/Signin")
     }
 
+    const redirectTochatroomPage = () => {
+        history.push("/Chatroom")
+    }
+
 //check input values for errors when users click sign up/register button
     const signup = () => {
         //clearing errors

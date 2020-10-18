@@ -6,7 +6,7 @@ class ColorPanel extends React.Component {
 
     render() {
         return (
-                <Col md={4}>Color Panel</Col>
+                <Col >Color Panel</Col>
         )
     }
 }

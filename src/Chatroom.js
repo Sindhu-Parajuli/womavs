@@ -12,9 +12,10 @@ const Chatroom = () => (
     <Row>
         <SidePanel/>
 
+
         <Message/>
 
-        <MetaPanel/>
+
     </Row>
 
 

@@ -7,7 +7,7 @@ class SidePanel extends React.Component {
 
     render() {
         return (
-            <Col md={3}>
+            <Col md={8}>
                 <Menu vertical size={"large"}>
 
                     <Menu.Item

@@ -25,6 +25,7 @@ const Profile=(logout)=>{
     const[deleteAc,setStatus] =useState(false)
     const [url,setUrl] = useState()
     console.log(user)
+    const [pError, setpError] = useState('');
     const history = useHistory();
 
     //https://stackoverflow.com/questions/3437786/get-the-size-of-the-screen-current-web-page-and-browser-window
@@ -63,11 +64,13 @@ const Profile=(logout)=>{
     }
     const resetPass=()=>{
         setView(0)
+        setpError("")
         firebase.auth().sendPasswordResetEmail(user.email).then(function() {
             // Email sent.
             alert("Password reset link was sent to your email!")
         }).catch(function(error) {
          console.log(error)
+          alert(error);
         });
 
 
@@ -157,6 +160,7 @@ const handleImage=(e)=>{
                         fullWidth
                         onChange={handlePassword}
                     />
+
                 </DialogContent>
                 <DialogActions>
                     <Button  color="primary" onClick={()=>setStatus(false)&&setPassword("")}>
@@ -210,8 +214,8 @@ const handleImage=(e)=>{
                             <div className={"card-body"}>
                             <ul className={"list-unstyled" }>
                                 <li><Button variant="contained" color={"default"} style={{marginBottom:5}} onClick={() =>setView(1)}>Edit Profile</Button>{' '}</li>
-                                <li><Button variant="contained" color={"primary"} style={{marginBottom:5}} onClick={() =>resetPass()}>Reset Passsword</Button>{' '}</li>
-                                <li> <Button variant="contained" color={"secondary"} onClick={()=>setStatus(true)}>Delete Account</Button>{' '}</li>
+                                <li><Button variant="contained" style={{marginBottom:5,background: "#0064b1" }} onClick={() =>resetPass()}>Reset Passsword</Button>{' '}</li>
+                                <li> <Button variant="contained" style={{background: "rgb(245,128,38)"}}  onClick={()=>setStatus(true)}>Delete Account</Button>{' '}</li>
                             </ul>
                             </div>
                     </div>

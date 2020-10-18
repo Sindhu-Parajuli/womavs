@@ -36,12 +36,21 @@ const Signin = () => {
         if (email && pass) {
             //Using Firebase function to authorize to sign in
             firebase.auth().signInWithEmailAndPassword(email, pass).then(result =>{
-
                 firebase.auth().onAuthStateChanged((usr) => {
                     if (usr) {
                        console.log(usr)
-                        history.push("/homepage")
+                        //Make sure users email is verified before they signin
+                        if (usr.emailVerified === false) {
+                            alert("Email Not Verified! Please check your email for the verification link");
 
+                            usr.sendEmailVerification().then(function() {
+                            }).catch(function(error) {
+                                // An error happened.
+                            });
+                        }
+                        else {
+                            history.push("/homepage")
+                        }
                         // setting email and password to null, if user exists
                         setemail("");
                         setpass("");
@@ -56,14 +65,19 @@ const Signin = () => {
 
                     //email errors
                     case "auth/invalid-email": //check if email is invalid
+                        seteError(err.message);
+                        break;
+                    case "auth/user-disabled": //check if account was disabled
+                        seteError(err.message);
+                        break;
                     case "auth/user-not-found": //check if user doesnot exist
                         seteError(err.message);
                         break;
-
                     //password errors
-                    case  "auth/invalid-password":   //check for wrong password
+                    case  "auth/wrong-password":   //check for wrong password
                         setpError(err.message);
                         break;
+                    default:
                 }
 
             })
@@ -102,7 +116,7 @@ const Signin = () => {
                 </div>
             </div>
 
-            <div className="card2 card border-0 px-4 py-5">
+            <div className="card2 card border-0 px-4 py-5" style={{width: "32rem"}}>
                 <div className="row px-3">
                     <label className="mb-1">
                         <h6 className="">Email Address</h6>

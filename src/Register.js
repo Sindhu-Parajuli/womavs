@@ -18,7 +18,7 @@ const Register = (props) => {
     console.log(props)
     const history = useHistory();
     console.log(history)
-    const [name, setName] = useState('');
+    const [name, setName] = useState("");
     const [email, setEmail] = useState('');
     const [pass, setPass] = useState('');
     const [checkbox, setCheck] = useState({
@@ -34,13 +34,25 @@ const Register = (props) => {
     const redirectToSigninPage = () => {
         history.push("/Signin")
     }
-
+    const tirmAndSetNametoDefault = (email) =>{
+        var n = email.substring(0,email.indexOf("@"))
+        setName(prev=> n)
+    }
 //check input values for errors when users click sign up/register button
     const signup = () => {
         //clearing errors
         seteError("");
         setpError("");
         setcError("")
+        // if user does not enter username then as default there username is all the chars before @ in there email. EX: b@ba.com -> username = b
+        if(name.trim()==""){
+            console.log("DO IT")
+            console.log(email.substring(0,email.indexOf("@")))
+            tirmAndSetNametoDefault(email)
+
+        }
+        console.log(name.trim() ==="");
+        console.log("username: "+name);
         var errorcheck = false;
         //password error check
         if (pass.length < 6) {
@@ -53,15 +65,7 @@ const Register = (props) => {
             setcError("Agreement terms must be met to register.")
             errorcheck=true;
         }
-        // if user does not enter username then as default there username is all the chars before @ in there email. EX: b@ba.com -> username = b
-        if(name.trim()===""){
-            console.log("DO IT")
-            console.log(email.substring(0,email.indexOf("@")))
-            var n = email.substring(0,email.indexOf("@"))
-            setName(n)
-        }
-        console.log(name.trim() ==="");
-        console.log("username: "+name);
+
         //email errorcheck
         if (email.includes("uta.edu")) {
             if( errorcheck == false){
@@ -70,16 +74,21 @@ const Register = (props) => {
                         {   //add user's username and default profile pic to database
                             firebase.auth().onAuthStateChanged((usr) => {
                                     usr.updateProfile({
-                                        displayName: name,
+                                        displayName: name? name: email.substring(0,email.indexOf("@")),
                                         photoURL: "https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png",
                                     }).catch(err=>{
                                         console.log(err);
                                     })
 
+                                usr.sendEmailVerification().then(function() {
+                                    alert("Please check you email for a verification link")
+                                }).catch(function(error) {
+                                    // An error happened.
+                                });
 
-                        });
+                            });
 
-                            history.push("/homepage")
+                            history.push("/signin")
 
                         }
                     )
@@ -129,7 +138,7 @@ const Register = (props) => {
                 </div>
             </div>
 
-            <div className="card2 card border-0 px-4 py-5">
+            <div className="card2 card border-0 px-4 py-5" style={{width: "32rem"}}>
                 <div className="row px-3">
                     <label className="mb-1">
                         <h6 className="">Email Address</h6>

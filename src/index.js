@@ -9,7 +9,11 @@ import RenderApp from "./RenderApp";
 
 
 
-ReactDOM.render(<RenderApp/>,document.getElementById("root"));
+ReactDOM.render(
+            <RenderApp></RenderApp>,
+    document.getElementById('root')
+);
+
 
 
 

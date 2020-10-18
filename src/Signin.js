@@ -11,9 +11,8 @@ import capture from "./images/Capture.PNG";
 
 
 
-
 const Signin = () => {
-
+    const history = useHistory();
     const [email, setemail] = useState('');
     const [pass, setpass] = useState('');
     const [acc, setacc] = useState('');
@@ -22,11 +21,12 @@ const Signin = () => {
     const [pError, setpError] = useState('');
     const [exists, setExists] = useState('false');
     const [success] = useState('false');
-    const history = useHistory();
+
+
 
     const redirectToPage = () => {
-        history.push("/")
-    }
+        history.push("/");
+    };
 
     const login = () => {
         //clearing errors
@@ -35,7 +35,22 @@ const Signin = () => {
 
         if (email && pass) {
             //Using Firebase function to authorize to sign in
-            firebase.auth().signInWithEmailAndPassword(email, pass).catch(err => {
+            firebase.auth().signInWithEmailAndPassword(email, pass).then(result =>{
+
+                firebase.auth().onAuthStateChanged((usr) => {
+                    if (usr) {
+                       console.log(usr)
+                        history.push("/homepage")
+
+                        // setting email and password to null, if user exists
+                        setemail("");
+                        setpass("");
+                        setName("");
+
+                    } else setacc("");
+
+                })
+            }).catch(err => {
 
                 switch (err.code) {
 
@@ -53,18 +68,6 @@ const Signin = () => {
 
             })
 
-            firebase.auth().onAuthStateChanged((usr) => {
-                if (usr) {
-                    history.push("/homepage")
-
-                    // setting email and password to null, if user exists
-                    setemail("");
-                    setpass("");
-                    setName("");
-
-                } else setacc("");
-
-            })
 
         } else seteError("Email and Password field required")
 
@@ -117,7 +120,7 @@ const Signin = () => {
                         <h6 className="mb-0 text-sm">Password</h6>
                     </label>
                     <input type="password" name="password" required value={pass}
-                           onChange={(e) => setpass(e.target.value)}
+                           onChange={(e) => setpass(e.target.value.trim())}
                            placeholder="Enter Password"/>
                     <p className={"errorMsg"} style={{color: "red"}}>{pError}</p>
 

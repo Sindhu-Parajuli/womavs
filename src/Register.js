@@ -4,6 +4,7 @@ import soc from './images/socialize.png'
 import ct from './images/chatrooms.jpeg'
 import men from './images/mentor.jpg'
 import metoo from './images/me too.jpg'
+import profilepic from './images/default.PNG'
 import Signin from "./Signin";
 import {Router, Switch, Route, Link} from "react-router-dom";
 import ReactDOM from "react-dom";
@@ -12,11 +13,11 @@ import firebase from "./firebase"
 import {useHistory} from 'react-router-dom';
 import {Checkbox,FormGroup, FormControlLabel,FormControl} from '@material-ui/core';
 import "./Register.css"
+
 const Register = (props) => {
     console.log(props)
     const history = useHistory();
     console.log(history)
-
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [pass, setPass] = useState('');
@@ -52,12 +53,32 @@ const Register = (props) => {
             setcError("Agreement terms must be met to register.")
             errorcheck=true;
         }
+        // if user does not enter username then as default there username is all the chars before @ in there email. EX: b@ba.com -> username = b
+        if(name.trim()===""){
+            console.log("DO IT")
+            console.log(email.substring(0,email.indexOf("@")))
+            var n = email.substring(0,email.indexOf("@"))
+            setName(n)
+        }
+        console.log(name.trim() ==="");
+        console.log("username: "+name);
         //email errorcheck
         if (email.includes("uta.edu")) {
             if( errorcheck == false){
                 firebase.auth().createUserWithEmailAndPassword(email, pass)
                     .then(function ()
-                        {
+                        {   //add user's username and default profile pic to database
+                            firebase.auth().onAuthStateChanged((usr) => {
+                                    usr.updateProfile({
+                                        displayName: name,
+                                        photoURL: "https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png",
+                                    }).catch(err=>{
+                                        console.log(err);
+                                    })
+
+
+                        });
+
                             history.push("/homepage")
 
                         }
@@ -136,7 +157,7 @@ const Register = (props) => {
                         <h6 className="mb-0 text-sm">Password</h6>
                     </label>
                     <input type="password" name="password" required value={pass}
-                           onChange={(e) => setPass(e.target.value)}
+                           onChange={(e) => setPass(e.target.value.trim())}
                            placeholder="Enter Password"/>
                     <p className={"errorMsg"} style={{color: "red"}}>{pError}</p>
                 </div>

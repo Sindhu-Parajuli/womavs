@@ -1,5 +1,4 @@
 import React, {useState, Component, Fragment} from 'react';
-import logo from './logo.svg';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.css'
 import App from "./App";
@@ -8,6 +7,8 @@ import Homepage from "./Homepage";
 import Signin from "./Signin";
 import Register from "./Register";
 import Profile from "./Profile";
+import ForgotPassword from "./ForgotPassword"
+import Chatroom from "./Chatroom";
 
 export class RenderApp extends React.Component {
     renderMain() {
@@ -19,6 +20,8 @@ export class RenderApp extends React.Component {
                     <Route path={"/homepage"} exact component={Homepage}/>
                     <Route path={"/signin"} exact component={Signin}/>
                     <Route path={"/profile"} exact component = {Profile}/>
+                    <Route path={"/chatroom"} exact component={Chatroom}/>
+                    <Route path={"/forgotpassword"} exact component={ForgotPassword}/>
                 </Fragment>
             </BrowserRouter>
         );

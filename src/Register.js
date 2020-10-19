@@ -38,6 +38,11 @@ const Register = (props) => {
         var n = email.substring(0,email.indexOf("@"))
         setName(prev=> n)
     }
+
+    const redirectTochatroomPage = () => {
+        history.push("/Chatroom")
+    }
+
 //check input values for errors when users click sign up/register button
     const signup = () => {
         //clearing errors
@@ -61,14 +66,14 @@ const Register = (props) => {
             console.log(errorcheck)
         }
         //checkbox error check
-        if(checkbox.femaleAgr == false) {
+        if(checkbox.femaleAgr === false) {
             setcError("Agreement terms must be met to register.")
             errorcheck=true;
         }
 
         //email errorcheck
         if (email.includes("uta.edu")) {
-            if( errorcheck == false){
+            if( errorcheck === false){
                 firebase.auth().createUserWithEmailAndPassword(email, pass)
                     .then(function ()
                         {   //add user's username and default profile pic to database
@@ -125,13 +130,13 @@ const Register = (props) => {
 
                 <div className="row px-3 justify-content-center mt-4 mb-5 border-line">
 
-                    <img src={soc} className="image"
+                    <img src={soc} className="image" alt="..."
                          style={{marginBottom: 20, marginRight: 50, height: 200, width: 200}}/>
-                    <img src={men} className="image"
+                    <img src={men} className="image" alt="..."
                          style={{marginBottom: 20, marginRight: 50, height: 200, width: 200}}/>
-                    <img src={ct} className="image"
+                    <img src={ct} className="image" alt="..."
                          style={{marginBottom: 20, marginRight: 50, height: 200, width: 200}}/>
-                    <img src={metoo} className="image"
+                    <img src={metoo} className="image" alt="..."
                          style={{marginBottom: 20, marginRight: 50, height: 200, width: 200}}/>
 
 

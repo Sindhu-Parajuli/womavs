@@ -80,7 +80,7 @@ const ForgotPassword  = () => {
                                     onClick={resetpassword}
                             >Reset Password
                             </button>
-                <div className="row mb-4 px-3">
+                <div className="row mb-4 px-3" style={{marginLeft:5}}>
                     <small className="font-weight-bold">Not a User yet? <button
                     className="text-danger " onClick={redirectToPage}>Register</button></small>
                 </div>

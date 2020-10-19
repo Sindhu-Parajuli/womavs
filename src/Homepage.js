@@ -69,6 +69,10 @@ const Homepage=(logout)=>{
                 <li><a onClick={redirectTochatroomPage}  style={{color:"white"}}>Chatrooms</a></li>
                 <li><a href="/resources" style={{color:"white"}}>Resources</a></li>
                 <li><a onClick={signout} style={{color:"white"}}>Logout</a></li>
+                <li className="active"><a href="/homepage" style={{color:"white"}}>HOME</a></li>
+                <li><a href="/chatrooms"  style={{color:"white"}}>CHAT ROOMS</a></li>
+                <li><a href="/resources" style={{color:"white"}}>RESOURCES</a></li>
+                <li><a onClick={signout} style={{color:"white"}}>LOGOUT</a></li>
 
             </ul>
         </div>

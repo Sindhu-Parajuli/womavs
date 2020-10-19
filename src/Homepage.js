@@ -1,17 +1,12 @@
-import firebase from "./firebase.js";
-import React,{useState, useEffect} from "react";
+
+import React, {useState} from "react";
 import App from "./App";
 import hp from "./css/hp.css"
 import {useHistory} from "react-router-dom";
+import firebase from "./firebase.js";
 import logo from "./images/Capture.PNG"
 import {Navbar,Nav} from "react-bootstrap";
 import capture from "./images/Capture.PNG";
-import propic from "./images/default.PNG"
-import hdr from "./css/hdr.css"
-
-
-
-
 
 
 
@@ -20,22 +15,15 @@ const Homepage=(logout)=> {
     const [post, setpost] = useState('');
     const [mydata,setMydata]=useState([]);
     const[myname,setmyName]=useState([]);
-    const height= window.screen.height;
-    const width= window.screen.width;
-    const history = useHistory();
-    const[user,setUser]=useState(firebase.auth().currentUser);
+
 
     const signout = () => {
         firebase.auth().signOut().then(history.push("/Signin"));
     }
 
-    const redirectTochatroomPage = () => {
-        history.push("/Chatroom")
-    }
-    console.log(user);
 
-    const[posts,setPosts]=useState([]);
-    //display posts
+    var keys=[];
+    var counts=[];
     var ref = firebase.database().ref().child("Posts").orderByChild('posts');
     var keys = [];
     var counts = [];
@@ -49,69 +37,57 @@ const Homepage=(logout)=> {
         }
         setMydata(counts);
     })
-    //display user name
-    var uid=firebase.auth().currentUser.uid;
-    var userr=firebase.auth().currentUser;
-    var post_name=userr.displayName;
-
-//load username
-    const[usname,setUsname]=useState([]);
-    var refk = firebase.database().ref().child("Posts").orderByChild('name');
-    var keys1 = [];
-    var counts1 = [];
-
-    refk.once('value', function (snap) {
-        snap.forEach(function (item) {
-            var itemVal1 = item.val();
-            keys1.push(itemVal1);
-        });
-        for (var i = 0; i < keys.length; i++) {
-            counts1.push(keys[i].name);
-        }
-        setUsname(counts1);
-    })
 
 
 
+
+
+
+
+   //const numbers = ["Hello My name is nick. Looking for roommate near uta", "2", "3", "4","5" ];
+    const listItems = mydata.map((number) =>
+
+        <div className="card px-3 py-4 " style={{marginTop: 20}}>
+            <h1> Username</h1>
+            <li>{number}</li>
+            <ul className="list-group">
+                <button className="btn float-Center" style={{
+                    display: 'flex',
+                    background: "rgb(0,100,177)",
+                    justifyContent: 'center',
+                    alignSelf: 'center',
+                    height: 40,
+                    width: 200
+                }}
+                        onClick={savePost}>Comment
+                </button>
+
+            </ul>
+        </div>
+
+    );
+
+    var uid = firebase.auth().currentUser.uid;
     var date = Math.floor(Date.now() / 1000)
+    var ref = firebase.app().database().ref();
+    var usersRef = ref.child('Posts').child(uid + date);
 
-    var ref2 = firebase.app().database().ref();
-    var usersRef = ref2.child('Posts').child(uid + date);
-
-    //save posts
     var savePost = function (user) {
         usersRef.set({
             posts: post,
             time: date,
-            uid:uid,
+            uid:uid
         })
         alert("Post successful")
-
     }
-    firebase.auth().onAuthStateChanged(function(usr) {
-        if (usr) {
-            // User is signed in.
-            setUser(u=>usr);
-            //const image = firebase.storage().ref(`images/${user.uid}`);
-
-            //image.getDownloadURL().then((url) =>   { document.getElementById("li").scr = url} );
 
 
 
-            console.log("Username")
-            console.log(usr)
 
 
-        } else {
-            // No user is signed in.
-            signout()
-        }
-    })
 
 
-        return(
-<div>
-    {user?(
+    return (
         <div style={{background: "rgb(255,250,250)"}}>
             <nav className="navbar navbar bg-blue" style={{background: "rgb(0,100,177)"}}>
                 <a className="navbar-brand" href="#">
@@ -140,7 +116,7 @@ const Homepage=(logout)=> {
                               placeholder="Write a post"
                               onChange={(e) => setpost(e.target.value)}
                     />
-                    <button className="btn float-left" style={{background: "rgb(0,100,177)", alignSelf: "right"}}
+                    <button Class="btn float-left" style={{background: "rgb(0,100,177)", alignSelf: "right"}}
                             onClick={savePost}>Post
                     </button>
 
@@ -153,7 +129,8 @@ const Homepage=(logout)=> {
                     {mydata.map((number) =>
 
                         <div className="card px-3 py-4 " style={{marginTop: 20}}>
-                            <h1> {number}</h1>
+                            <h1> Username</h1>
+                            <p1> Timestap</p1>
                             <li>{number}</li>
                             <ul className="list-group">
                                 <button className="btn float-Center" style={{
@@ -169,6 +146,7 @@ const Homepage=(logout)=> {
 
                             </ul>
                         </div>
+
                     )}
 
                 </div>
@@ -177,9 +155,10 @@ const Homepage=(logout)=> {
 
 
         </div>
-    ):(<div><h1>User is null?</h1></div>)}
-    </div>
-);
+
+    )
+    return 0;
+
+
 }
 export default Homepage;
-

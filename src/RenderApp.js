@@ -6,7 +6,10 @@ import {BrowserRouter, Route} from "react-router-dom";
 import Homepage from "./Homepage";
 import Signin from "./Signin";
 import Register from "./Register";
+import Profile from "./Profile";
 import ForgotPassword from "./ForgotPassword"
+import Resources from "./Resources";
+import Chatroom from "./Chatroom";
 
 export class RenderApp extends React.Component {
     renderMain() {
@@ -17,6 +20,9 @@ export class RenderApp extends React.Component {
                     <Route path={"/register"} exact component={Register}/>
                     <Route path={"/homepage"} exact component={Homepage}/>
                     <Route path={"/signin"} exact component={Signin}/>
+                    <Route path={"/resources"} exact component={Resources}/>
+                    <Route path={"/profile"} exact component = {Profile}/>
+                    <Route path={"/chatroom"} exact component={Chatroom}/>
                     <Route path={"/forgotpassword"} exact component={ForgotPassword}/>
                 </Fragment>
             </BrowserRouter>

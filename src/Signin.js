@@ -11,9 +11,8 @@ import capture from "./images/Capture.PNG";
 
 
 
-
 const Signin = () => {
-
+    const history = useHistory();
     const [email, setemail] = useState('');
     const [pass, setpass] = useState('');
     const [acc, setacc] = useState('');
@@ -22,10 +21,15 @@ const Signin = () => {
     const [pError, setpError] = useState('');
     const [exists, setExists] = useState('false');
     const [success] = useState('false');
-    const history = useHistory();
+
+
 
     const redirectToPage = () => {
-        history.push("/")
+        history.push("/");
+    };
+
+    const redirectTochatroomPage = () => {
+        history.push("/Chatroom")
     }
 
     const login = () => {
@@ -35,36 +39,53 @@ const Signin = () => {
 
         if (email && pass) {
             //Using Firebase function to authorize to sign in
-            firebase.auth().signInWithEmailAndPassword(email, pass).catch(err => {
+            firebase.auth().signInWithEmailAndPassword(email, pass).then(result =>{
+                firebase.auth().onAuthStateChanged((usr) => {
+                    if (usr) {
+                       console.log(usr)
+                        //Make sure users email is verified before they signin
+                        if (usr.emailVerified === false) {
+                            alert("Email Not Verified! Please check your email for the verification link");
+
+                            usr.sendEmailVerification().then(function() {
+                            }).catch(function(error) {
+                                // An error happened.
+                            });
+                        }
+                        else {
+                            history.push("/homepage")
+                        }
+                        // setting email and password to null, if user exists
+                        setemail("");
+                        setpass("");
+                        setName("");
+
+                    } else setacc("");
+
+                })
+            }).catch(err => {
 
                 switch (err.code) {
 
                     //email errors
                     case "auth/invalid-email": //check if email is invalid
+                        seteError(err.message);
+                        break;
+                    case "auth/user-disabled": //check if account was disabled
+                        seteError(err.message);
+                        break;
                     case "auth/user-not-found": //check if user doesnot exist
                         seteError(err.message);
                         break;
-
                     //password errors
-                    case  "auth/invalid-password":   //check for wrong password
+                    case  "auth/wrong-password":   //check for wrong password
                         setpError(err.message);
                         break;
+                    default:
                 }
 
             })
 
-            firebase.auth().onAuthStateChanged((usr) => {
-                if (usr) {
-                    history.push("/homepage")
-
-                    // setting email and password to null, if user exists
-                    setemail("");
-                    setpass("");
-                    setName("");
-
-                } else setacc("");
-
-            })
 
         } else seteError("Email and Password field required")
 
@@ -96,7 +117,7 @@ const Signin = () => {
                 </div>
             </div>
 
-            <div className="card2 card border-0 px-4 py-5">
+            <div className="card2 card border-0 px-4 py-5" style={{width: "32rem"}}>
                 <div className="row px-3">
                     <label className="mb-1">
                         <h6 className="">Email Address</h6>
@@ -114,14 +135,14 @@ const Signin = () => {
                         <h6 className="mb-0 text-sm">Password</h6>
                     </label>
                     <input type="password" name="password" required value={pass}
-                           onChange={(e) => setpass(e.target.value)}
+                           onChange={(e) => setpass(e.target.value.trim())}
                            placeholder="Enter Password"/>
                     <p className={"errorMsg"} style={{color: "red"}}>{pError}</p>
 
                 </div>
 
 
-                <div className="row mb-3 px-3">
+                <div className="row mb-3 px-3" style={{marginTop:5}}>
                     <button className="btn btn-blue text-center"
                             onClick={login}
                     >Login

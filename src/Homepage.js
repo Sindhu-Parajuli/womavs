@@ -6,6 +6,11 @@ import {useHistory} from "react-router-dom";
 import logo from "./images/Capture.PNG"
 import {Navbar,Nav} from "react-bootstrap";
 import capture from "./images/Capture.PNG";
+import propic from "./images/default.PNG"
+import hdr from "./css/hdr.css"
+
+
+
 
 
 
@@ -15,11 +20,19 @@ const Homepage=(logout)=> {
     const [post, setpost] = useState('');
     const [mydata,setMydata]=useState([]);
     const[myname,setmyName]=useState([]);
+    const height= window.screen.height;
+    const width= window.screen.width;
+    const history = useHistory();
+    const[user,setUser]=useState(firebase.auth().currentUser);
 
     const signout = () => {
         firebase.auth().signOut().then(history.push("/Signin"));
     }
 
+    const redirectTochatroomPage = () => {
+        history.push("/Chatroom")
+    }
+    console.log(user);
 
     const[posts,setPosts]=useState([]);
     //display posts
@@ -75,9 +88,30 @@ const Homepage=(logout)=> {
         alert("Post successful")
 
     }
+    firebase.auth().onAuthStateChanged(function(usr) {
+        if (usr) {
+            // User is signed in.
+            setUser(u=>usr);
+            //const image = firebase.storage().ref(`images/${user.uid}`);
+
+            //image.getDownloadURL().then((url) =>   { document.getElementById("li").scr = url} );
 
 
-    return (
+
+            console.log("Username")
+            console.log(usr)
+
+
+        } else {
+            // No user is signed in.
+            signout()
+        }
+    })
+
+
+        return(
+<div>
+    {user?(
         <div style={{background: "rgb(255,250,250)"}}>
             <nav className="navbar navbar bg-blue" style={{background: "rgb(0,100,177)"}}>
                 <a className="navbar-brand" href="#">
@@ -106,7 +140,7 @@ const Homepage=(logout)=> {
                               placeholder="Write a post"
                               onChange={(e) => setpost(e.target.value)}
                     />
-                    <button Class="btn float-left" style={{background: "rgb(0,100,177)", alignSelf: "right"}}
+                    <button className="btn float-left" style={{background: "rgb(0,100,177)", alignSelf: "right"}}
                             onClick={savePost}>Post
                     </button>
 
@@ -135,7 +169,6 @@ const Homepage=(logout)=> {
 
                             </ul>
                         </div>
-
                     )}
 
                 </div>
@@ -144,16 +177,9 @@ const Homepage=(logout)=> {
 
 
         </div>
-    )
-
-    return 0;
-
-
+    ):(<div><h1>User is null?</h1></div>)}
+    </div>
+);
 }
 export default Homepage;
-
-
-
-
-
 

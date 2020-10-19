@@ -1,6 +1,5 @@
 import React, {useState} from "react";
 import 'bootstrap/dist/css/bootstrap.css'
-import Register from "./Register";
 import firebase from "./firebase.js";
 import {useHistory} from "react-router-dom";
 import womavs from "./images/Capture.PNG";
@@ -9,12 +8,10 @@ const ForgotPassword  = () => {
 
     const [email, setemail] = useState('');
     const [eError, seteError] = useState('');
-    const [pError, setpError] = useState('');
-    const [cError, setcError] = useState('');
     const history = useHistory();
 
     //Will have change url when we get this hosted
-    var actionCodeSettings = {
+    const actionCodeSettings = {
         url: 'http://localhost:3000/homepage',
         handleCodeInApp: true
     };
@@ -38,9 +35,11 @@ const ForgotPassword  = () => {
                         //email errors
                         case "auth/invalid-email": //check if email is invalid
                             seteError(error.code);
+                            break;
                         case "auth/user-not-found": //check if user does not exist
                             seteError(error.code);
                             break;
+                        default:
 
                     }
 
@@ -60,7 +59,6 @@ const ForgotPassword  = () => {
                             <div className="row px-3 justify-content-center mt-4 mb-5 border-line">
                                 <img src={lectureroom} className="image"
                                      style={{ height: 350, width: 800}} alt="..."/>
-
                             </div>
                 </div>
             <div class="card-body">
@@ -80,7 +78,7 @@ const ForgotPassword  = () => {
                                     onClick={resetpassword}
                             >Reset Password
                             </button>
-                <div className="row mb-4 px-3">
+                <div className="row mb-4 px-3" style={{marginLeft:5}}>
                     <small className="font-weight-bold">Not a User yet? <button
                     className="text-danger " onClick={redirectToPage}>Register</button></small>
                 </div>

@@ -207,9 +207,9 @@ const handleImage=(e)=>{
                     <div className="col-lg-12">
 
                             {user.displayName?(
-                            <h5 className="card-title" id={"currUsername"} style={{marginLeft:"30%"}}>{user.displayName}</h5>
+                            <h2 className="card-title" id={"currUsername"} style={{marginLeft:"30%"}}>{user.displayName}</h2>
                                 ):(
-                                <h5 className="card-title" style={{marginLeft:"30%"}}>Somewhere</h5>
+                                <h2 className="card-title" style={{marginLeft:"30%"}}>Somewhere</h2>
                             )}
                             <div className={"card-body"}>
                             <ul className={"list-unstyled" }>

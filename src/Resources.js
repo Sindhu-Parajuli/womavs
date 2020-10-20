@@ -21,7 +21,6 @@ const Resources=(logout) => {
     const signout = () => {
         firebase.auth().signOut().then(history.push("/Signin"));
 
-
     }
 
     return (
@@ -36,7 +35,7 @@ const Resources=(logout) => {
                         </div>
                         <ul className="nav navbar-nav" style={{textAlign: "right"}}>
                             <li className="active"><a href="/resources" style={{color: "white"}}>RESOURCES</a></li>
-                            <li><a href="/chatrooms" style={{color: "white"}}>CHAT ROOMS</a></li>
+                            <li><a href="/chatroom" style={{color: "white"}}>CHAT ROOMS</a></li>
                             <li><a href="/homepage" style={{color: "white"}}>HOME</a></li>
                             <li><a onClick={signout} style={{color:"white"}}>LOGOUT</a></li>
                         </ul>

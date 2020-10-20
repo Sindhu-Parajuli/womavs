@@ -145,7 +145,7 @@ const Homepage=(logout)=>{
                     </a>
 
                     <div className="topnav" id="myTopnav" style={{width: 800, margin: '0 auto'}}>
-                        <a href="#home">Home</a>
+                        <a href="/homepage">Home</a>
                         <a onClick={redirectTochatroomPage}>Chatrooms</a>
                         <a href="#ann">Announcement</a>
                         <a onClick={redirectToResourcesPage}>Resources</a>

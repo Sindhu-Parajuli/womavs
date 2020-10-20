@@ -186,7 +186,7 @@ const handleImage=(e)=>{
                         </div>
                         <ul className="nav navbar-nav">
                             <li><a href="/homepage" style={{color: "white"}}>Home</a></li>
-                            <li><a href="/chatrooms" style={{color: "white"}}>Chatrooms</a></li>
+                            <li><a href="/chatroom" style={{color: "white"}}>Chatrooms</a></li>
                             <li><a href="/resources" style={{color: "white"}}>Resources</a></li>
                             <li><a onClick={signout} style={{color: "white"}}>Logout</a></li>
 

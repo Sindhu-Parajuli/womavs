@@ -91,7 +91,6 @@ const Register = (props) => {
 
                             });
 
-                            history.push("/signin")
 
                         }
                     )

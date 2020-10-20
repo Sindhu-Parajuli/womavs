@@ -16,7 +16,7 @@ const Post = ({username, timestamp, userImage,post}) =>{
             <div className="card px-3 py-4 " style={{marginTop: 20}}>
                     <div className={"row"} style={{marginLeft:5}}>
                         <Avatar src={userImage}></Avatar>
-                        <p>{new Date(timestamp?.toDate()).toUTCString()}</p>
+                        <p>timestamp</p>
                     </div>
                     <div id={"post_header"}>
                     <h1>{username}</h1>

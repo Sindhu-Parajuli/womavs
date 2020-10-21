@@ -186,7 +186,7 @@ const handleImage=(e)=>{
                         </div>
                         <ul className="nav navbar-nav">
                             <li><a href="/homepage" style={{color: "white"}}>Home</a></li>
-                            <li><a href="/chatrooms" style={{color: "white"}}>Chatrooms</a></li>
+                            <li><a href="/chatroom" style={{color: "white"}}>Chatrooms</a></li>
                             <li><a href="/resources" style={{color: "white"}}>Resources</a></li>
                             <li><a onClick={signout} style={{color: "white"}}>Logout</a></li>
 
@@ -207,9 +207,9 @@ const handleImage=(e)=>{
                     <div className="col-lg-12">
 
                             {user.displayName?(
-                            <h5 className="card-title" id={"currUsername"} style={{marginLeft:"30%"}}>{user.displayName}</h5>
+                            <h2 className="card-title" id={"currUsername"} style={{marginLeft:"30%"}}>{user.displayName}</h2>
                                 ):(
-                                <h5 className="card-title" style={{marginLeft:"30%"}}>Somewhere</h5>
+                                <h2 className="card-title" style={{marginLeft:"30%"}}>Somewhere</h2>
                             )}
                             <div className={"card-body"}>
                             <ul className={"list-unstyled" }>

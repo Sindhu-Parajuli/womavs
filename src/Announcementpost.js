@@ -23,7 +23,7 @@ const AnnouncementPost = ({username, timestamp, userImage,post,title}) =>{
                     <h4>{username}</h4>
 
                 </div>
-                <hr/>
+                <hr style={{background: "#0064b1"}}/>
                 <div id={"post_header"} style={{
                     display: 'flex',
                     justifyContent: 'center',
@@ -35,7 +35,7 @@ const AnnouncementPost = ({username, timestamp, userImage,post,title}) =>{
                     <h2>{title}</h2>
 
                 </div>
-                <hr/>
+                <hr style={{  background: "rgb(245,128,38)" }}/>
                     <div id={"post_header"} >
                         <h4>{post}</h4>
                     </div>

@@ -23,6 +23,10 @@ const Announcement =(logout)=>{
     const[myname,setmyName]=useState([]);
     const [user,setUser]=useState('');
 
+    const  redirectToAboutUsPage = () =>{
+        history.push("/about")
+    }
+
     const redirectToAnnouncementPage = () => {
         history.push("/announcement")
     }
@@ -114,7 +118,7 @@ console.log( date)
                             <a onClick={redirectToResourcesPage}>Resources</a>
                             <a onClick={redirectToProfilePage}>My Account</a>
                             <a onClick={signout}>Logout</a>
-                            <a href="#abu">About Us</a>
+                            <a onClick={redirectToAboutUsPage}>About Us</a>
 
 
                         </div>

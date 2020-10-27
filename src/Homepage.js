@@ -22,6 +22,11 @@ const Homepage=(logout)=>{
     const [user,setUser]=useState('');
 
 
+
+    const redirectToAnnouncementPage = () => {
+        history.push("/announcement")
+    }
+
     const redirectTochatroomPage = () => {
         history.push("/chatroom")
         }
@@ -147,7 +152,7 @@ const Homepage=(logout)=>{
                     <div className="topnav" id="myTopnav" style={{width: 800, margin: '0 auto'}}>
                         <a href="/homepage">Home</a>
                         <a onClick={redirectTochatroomPage}>Chatrooms</a>
-                        <a href="#ann">Announcement</a>
+                        <a onClick={redirectToAnnouncementPage}>Announcement</a>
                         <a onClick={redirectToResourcesPage}>Resources</a>
                         <a onClick={redirectToProfilePage}>My Account</a>
                         <a onClick={signout}>Logout</a>
@@ -180,6 +185,7 @@ const Homepage=(logout)=>{
                            timestamp ={post.timestamp}
                            userImage={post.userimage}
                            post = {post.post}
+
                       />
                     ))}
 

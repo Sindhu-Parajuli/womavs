@@ -10,6 +10,7 @@ import Profile from "./Profile";
 import ForgotPassword from "./ForgotPassword"
 import Resources from "./Resources";
 import Chatroom from "./Chatroom";
+import About from "./About"
 
 export class RenderApp extends React.Component {
     renderMain() {
@@ -24,6 +25,7 @@ export class RenderApp extends React.Component {
                     <Route path={"/profile"} exact component = {Profile}/>
                     <Route path={"/chatroom"} exact component={Chatroom}/>
                     <Route path={"/forgotpassword"} exact component={ForgotPassword}/>
+                    <Route path={"/about"} exact component={About}/>
                 </Fragment>
             </BrowserRouter>
         );

@@ -36,6 +36,11 @@ const Homepage=(logout)=>{
     const redirectToResourcesPage = () => {
         history.push("/resources")
     }
+const redirectToAboutUsPage = () =>{
+        history.push("/about")
+}
+
+
     const signout = () => {
         firebase.auth().signOut().then(()=>{
             //this.store.dispatch('clearData')
@@ -156,7 +161,7 @@ const Homepage=(logout)=>{
                         <a onClick={redirectToResourcesPage}>Resources</a>
                         <a onClick={redirectToProfilePage}>My Account</a>
                         <a onClick={signout}>Logout</a>
-                        <a href="#abu">About Us</a>
+                        <a onClick={redirectToAboutUsPage}>About Us</a>
 
 
                     </div>

@@ -110,7 +110,7 @@ const Profile=(logout)=>{
             var storageRef = firebase.storage().ref();
             //`user.displayName+/profilePicture/'${photo.name}`
             //create a reference to users pic in storage
-            var ImagesRef = storageRef.child(`${user.email}/profilePicture/${photo.name}`);
+            var ImagesRef = storageRef.child(`${user.email}/profilePicture/profilepic`);
 
             console.log(ImagesRef)
             //upload pic to firebase

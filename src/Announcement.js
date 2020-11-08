@@ -93,7 +93,6 @@ console.log( date)
                 signout()
             }
         })
-        alert("Post successful")
     }
 
 

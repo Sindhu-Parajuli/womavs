@@ -7,11 +7,17 @@ import * as firebase from "./firebase.js";
 import 'semantic-ui-css/semantic.min.css'
 import * as serviceWorker from './serviceWorker';
 import RenderApp from "./RenderApp";
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
+import { composeWithDevTools} from 'redux-devtools-extension'
 
 
+const store = createStore((()=> {} , composeWithDevTools()));
 
 ReactDOM.render(
-            <RenderApp></RenderApp>,
+    <Provider store = {store}>
+        <RenderApp></RenderApp>
+    </Provider>,
     document.getElementById('root')
 );
 

@@ -11,17 +11,24 @@ import {Comment, CommentContent, CommentGroup} from "semantic-ui-react";
 
 
 const Post = ({pst_id,username, timestamp, userImage,post}) =>{
-
+    const [hidecom,setHidecom]=useState(false)
     const history= useHistory();
     const [cmnts,setCmnts]=useState([]);
     const[row,setRow]=useState("");
+    const changeHide=()=>{
+        setHidecom(true);
+    }
+
+    const changeHideFalse=()=>{
+        setHidecom(false);
+    }
 
     useEffect(() => {
         let sbc;
 
         if(pst_id)
         {
-            sbc = firebase.firestore().collection("posts").doc(pst_id).collection("comments")
+            sbc = firebase.firestore().collection("posts").doc(pst_id).collection("comments").orderBy("tstamp","asc")
                 .onSnapshot((snapshot) => {
                     setCmnts(snapshot.docs.map((doc) => doc.data()))
 
@@ -35,9 +42,7 @@ const Post = ({pst_id,username, timestamp, userImage,post}) =>{
 
 
 
-   // const redirectToComments = () => {
-     //   history.push("/comment")
-    //}
+
 
     const saveComm=(evnt)=>{
 
@@ -67,21 +72,37 @@ const Post = ({pst_id,username, timestamp, userImage,post}) =>{
                     <h1>{username}</h1>
                     <p>{post}</p>
                 </div>
+                <ul className="list-group">
+                {!hidecom ? <button className="btn float-Center" style={{
+                    display: 'flex',
+                    background: "rgb(0,100,177)",
+                    justifyContent: 'center',
+                    marginTop:10,
+                    alignSelf: 'center',
+                    height: 40,
+                    width: 200
+                }}
+                onClick={changeHide}><b>Comment</b>
+                </button>:null}
+                </ul>
 
-
-                <form style={{ marginTop:20}}>
-                    <input  type="text" required value={row} style={{blockSize:25}}
+                {hidecom ? <form  style={{ marginTop:20}}>
+                    <hr
+                        style={{width:1100}}
+                    />
+                    <input  type="text"  required value={row} style={{blockSize:25}}
                            onChange={(e) => setRow(e.target.value)}
                            placeholder="Add a comment"/>
                     <button type="submit" style={{background: "rgb(0,100,177)"}} onClick={saveComm}>Comment</button>
-                </form>
+                    <button type="submit" style={{background: "red"}} onClick={changeHideFalse}>Cancel</button>
+                    </form>:null}
 
 
-                {<div style={{background: "rgb(220,220,220)", marginTop:20}}>
+                {hidecom ? <div style={{background: "rgb(220,220,220)", marginTop: 20}}>
                     {
-                        cmnts.map((cmnt)=>(
+                        cmnts.map((cmnt) => (
                             <CommentGroup>
-                                <Comment style={{background:"rga(220,220,220)"}}>
+                                <Comment style={{background: "rga(220,220,220)"}}>
                                     <CommentContent>
                                         <Comment.Author>{cmnt.username}
                                             <Comment.Metadata>{new Date(cmnt.tstamp?.toDate()).toUTCString()}</Comment.Metadata>
@@ -89,14 +110,15 @@ const Post = ({pst_id,username, timestamp, userImage,post}) =>{
                                         <Comment.Text>{cmnt.message}</Comment.Text>
                                     </CommentContent>
                                     <hr
-                                        style={{height: 5}}
+                                        style={{width:800}}
                                     />
                                 </Comment>
                             </CommentGroup>
-                        ) ) }
+                        ))}
 
-                </div>
+                </div>:null
                 }
+
 
             </div>
 

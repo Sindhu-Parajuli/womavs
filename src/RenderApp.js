@@ -10,7 +10,7 @@ import Profile from "./Profile";
 import ForgotPassword from "./ForgotPassword"
 import Resources from "./Resources";
 import Chatroom from "./Chatroom";
-import Comments from "./comment";
+
 
 export class RenderApp extends React.Component {
     renderMain() {

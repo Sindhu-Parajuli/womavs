@@ -8,6 +8,7 @@ import ColorPanel from "./component/ColorPanel/ColorPanel";
 import Message from "./component/Messages/Messages";
 import MetaPanel from "./component/MetaPanel/MetaPanel";
 
+
 const Chatroom = () => (
     <Row>
         <SidePanel/>

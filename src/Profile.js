@@ -16,6 +16,22 @@ import DialogActions from "@material-ui/core/DialogActions";
 
 const Profile=(logout)=>{
 
+    const redirectTochatroomPage = () => {
+        history.push("/chatroom")
+    }
+    const redirectToProfilePage = () => {
+        history.push("/profile")
+    }
+    const redirectToResourcesPage = () => {
+        history.push("/resources")
+    }
+    const redirectToAnnouncementPage = () => {
+        history.push("/announcement")
+    }
+    const redirectToAboutUsPage = () => {
+        history.push("/about")
+    }
+
     const[user,setUser]=useState(null);
     const[password,setPassword]=useState(null);
     const [name, setNewUsername] = useState('');
@@ -177,22 +193,22 @@ const handleImage=(e)=>{
         {user?(
             <div >
                 {/* Header*/}
-                <nav className="navbar navbar-default" style={{background: "rgb(0,100,177)"}}>
-                    <div className="container-fluid">
-                        <div>
-                            <h2 style={{color: "white"}}>WoMavs</h2>
-                            <img id={"lo"} src={capture} style={{marginLeft: width - (width / 2), marginTop: 5}}
-                                 height={75} width={100} alt="..."/>
+                <div>
+                    <nav className="navbar navbar bg-blue" style={{background: "rbg(0,100,177"}}>
+                        <a className="navbar-brand" href="#">
+                            <img src={capture} width="60" height="60"/>
+                        </a>
+                        <div className="topnav" id="myTopnav" style={{width: 800, margin: '0 auto'}}>
+                            <a href="/homepage">Home</a>
+                            <a onClick={redirectTochatroomPage}>Chatrooms</a>
+                            <a onClick={redirectToAnnouncementPage}>Announcement</a>
+                            <a onClick={redirectToAboutUsPage}>About Us</a>
+                            <a onClick={redirectToResourcesPage}>Resources</a>
+                            <a onClick={redirectToProfilePage}>My Account</a>
+                            <a onClick={signout}>Logout</a>
                         </div>
-                        <ul className="nav navbar-nav">
-                            <li><a href="/homepage" style={{color: "white"}}>Home</a></li>
-                            <li><a href="/chatrooms" style={{color: "white"}}>Chatrooms</a></li>
-                            <li><a href="/resources" style={{color: "white"}}>Resources</a></li>
-                            <li><a onClick={signout} style={{color: "white"}}>Logout</a></li>
-
-                        </ul>
-                    </div>
-                </nav>
+                    </nav>
+                </div>
 
                 {/* Body*/}
                 <div className={"row"} >

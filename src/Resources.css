@@ -1,0 +1,9 @@
+.carousel-caption {
+    width: 200px;
+    z-index: 10;
+    text-align: center;
+    top: 50%;
+    left: 65%;
+    bottom: auto;
+}
+

@@ -8,9 +8,6 @@ import firebase from "./firebase.js";
 import {Navbar,Nav} from "react-bootstrap";
 import Post from "./Post"
 
-
-
-
 const Homepage=(logout)=>{
     const height= window.screen.height;
     const width= window.screen.width;
@@ -31,6 +28,13 @@ const Homepage=(logout)=>{
     const redirectToResourcesPage = () => {
         history.push("/resources")
     }
+    const redirectToAnnouncementPage = () => {
+        history.push("/announcement")
+    }
+    const redirectToAboutUsPage = () => {
+        history.push("/about")
+    }
+
     const signout = () => {
         firebase.auth().signOut().then(()=>{
             //this.store.dispatch('clearData')
@@ -147,13 +151,11 @@ const Homepage=(logout)=>{
                     <div className="topnav" id="myTopnav" style={{width: 800, margin: '0 auto'}}>
                         <a href="/homepage">Home</a>
                         <a onClick={redirectTochatroomPage}>Chatrooms</a>
-                        <a href="#ann">Announcement</a>
+                        <a onClick={redirectToAnnouncementPage}>Announcement</a>
+                        <a onClick={redirectToAboutUsPage}>About Us</a>
                         <a onClick={redirectToResourcesPage}>Resources</a>
                         <a onClick={redirectToProfilePage}>My Account</a>
                         <a onClick={signout}>Logout</a>
-                        <a href="#abu">About Us</a>
-
-
                     </div>
                 </nav>
 

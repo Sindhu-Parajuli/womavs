@@ -1,9 +1,12 @@
 .carousel-caption {
     width: 200px;
     z-index: 10;
-    text-align: center;
-    top: 50%;
+    top: 25%;
     left: 65%;
-    bottom: auto;
+    bottom: 50%;
+}
+
+.highlightme{
+    background-color: #f58026;
 }
 

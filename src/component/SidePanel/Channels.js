@@ -7,35 +7,64 @@ class Channels extends React.Component {
         channels: [],
         channelName:'',
         channelDetails:'',
-        channelsRef:firebase.database().ref('channels'),
-        //channelsRef:firebase.firestore().collection('channels'),
+        //channelsRef:firebase.database().ref('channels'),
+        channelsRef:firebase.firestore().collection('channels'),
         modal:false
     };
+
 
     addChannel = () => {
         const { channelsRef, channelName, channelDetails, user } = this.state;
 
-        const key = channelsRef.push().key;
 
-        const newChannel = {
-            id: key,
+      firebase.firestore().collection('channels').add({
             name: channelName,
             details: channelDetails,
-
-        };
-
-        channelsRef
-            .child(key)
-            .update(newChannel)
-            .then(() => {
-                this.setState({ channelName: "", channelDetails: "" });
-                this.closeModal();
-                console.log("channel added");
-            })
-            .catch(err => {
-                console.error(err);
-            });
+        }).then(() => {
+            this.setState({channelName: "", channelDetails: ""});
+            this.closeModal();
+        })
     };
+
+
+
+
+        //const key = channelsRef.push().key;
+
+        //const newChannel = {
+           // id: key,
+           // name: channelName,
+           // details: channelDetails,
+
+       // };
+
+        //channelsRef
+            //.child(key)
+           // .update(newChannel)
+            //.then(() => {
+                //this.setState({ channelName: "", channelDetails: "" });
+                //this.closeModal();
+               // console.log("channel added");
+           // })
+           // .catch(err => {
+                //console.error(err);
+           // });
+
+
+
+    displayChannels = channels =>
+        channels.length > 0 &&
+        channels.map(channel => (
+            <Menu.Item
+                //key={channel.id}
+                onClick={() => console.log(channel)}
+                name={channel.name}
+                style={{ opacity: 0.7 }}
+            >
+                # {channel.name}
+            </Menu.Item>
+        ));
+
 
 
     handleSubmit = event => {
@@ -69,7 +98,7 @@ class Channels extends React.Component {
           </span>{" "}
                     ({channels.length}) <Icon name="add" onClick={this.openModal} />
                 </Menu.Item>
-
+                {this.displayChannels(channels)}
                 {/* Channels */}
             </Menu.Menu>
 

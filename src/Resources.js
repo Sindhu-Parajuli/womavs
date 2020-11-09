@@ -46,7 +46,7 @@ const Resources=(logout) => {
     return (
         <div>
             <div>
-                <nav className="navbar navbar bg-blue" style={{background: "rbg(0,100,177"}}>
+                <nav className="navbar navbar bg-blue" style={{background: "rgb(0,100,177)"}}>
                     <a className="navbar-brand" href="#">
                         <img src={capture} width="60" height="60"/>
                     </a>
@@ -62,9 +62,9 @@ const Resources=(logout) => {
                 </nav>
             </div>
                 <Carousel>
-                    <Carousel.Item>
+                    <Carousel.Item >
                         <h2><a href="http://www.uta.edu/caps" style={{color: "rgb(245,128,38)"}}>Counseling and Psychological Services (CAPS)</a></h2>
-                        <img className="d-inline-block rounded-circle w-50" src={caps}/>
+                        <img className="d-inline-block rounded-circle w-25" style={{marginBottom:150}} src={caps}/>
                         <Carousel.Caption>
                             <div className="carousel-caption">
                                 <h3 style={{ color: "rgb(245,128,38)"}}>UT Arlington Counseling and Psychological Services (CAPS) is committed to helping students meet their full personal, academic, and career potential. Services are available to help students increase their understanding of personal issues, address mental and behavioral health problems, and make positive changes in their lives.</h3>
@@ -81,28 +81,28 @@ const Resources=(logout) => {
                     </Carousel.Item>
                     <Carousel.Item>
                         <h2><a href="https://mavorgs.campuslabs.com/engage/organization/societyofwomenengineers" style={{color: "rgb(245,128,38)"}}>UTA Society of Women Engineers</a></h2>
-                        <img className="d-inline-block rounded-circle w-50" src={swe}/>
+                        <img className="d-inline-block rounded-circle w-25"  style={{marginBottom:150}} src={swe}/>
                         <Carousel.Caption>
                             <h3 style={{color: "rgb(245,128,38)"}}>Empower women to achieve full potential in careers as engineers and leaders, expand the image of the engineering and technology professions as a positive force in improving the quality of life, and demonstrate the value of diversity and inclusion.</h3>
                         </Carousel.Caption>
                     </Carousel.Item>
                     <Carousel.Item>
                         <h2><a href="https://mavorgs.campuslabs.com/engage/organization/awm" style={{color: "rgb(245,128,38)"}}>UTA Association of Women in Mathematics</a></h2>
-                        <img className="d-inline-block rounded-circle w-50" src={awm}/>
+                        <img className="d-inline-block rounded-circle w-25"  style={{marginBottom:150}} src={awm}/>
                         <Carousel.Caption>
                             <h3 style={{color: "rgb(245,128,38)"}}>The purpose of the Association for Women in Mathematics is to encourage women and girls to study and to have active careers in the mathematical sciences.We aim to promote equal opportunity and equal treatment of women and girls in the mathematical sciences.</h3>
                         </Carousel.Caption>
                     </Carousel.Item>
                     <Carousel.Item>
                         <h2><a href="https://mavorgs.campuslabs.com/engage/organization/women-in-business" style={{color: "rgb(245,128,38)"}}>UTA Women in Business</a></h2>
-                        <img className="d-inline-block rounded-circle w-50" src={wib}/>
+                        <img className="d-inline-block rounded-circle w-25"  style={{marginBottom:190}} src={wib}/>
                         <Carousel.Caption>
                             <h3 style={{color: "rgb(245,128,38)"}}>Our mission is to change the perceived limitations and misconceptions of women in the business field. Our objective is to provide an environment where members can engage with peers and business professionals to acquire the necessary resources to reach their full potential as confident and capable business professionals.</h3>
                         </Carousel.Caption>
                     </Carousel.Item>
                     <Carousel.Item>
                         <h2><a href="https://mavorgs.campuslabs.com/engage/organization/das" style={{color: "rgb(245,128,38)"}}>UTA Delta Alpha Sigma Multicultural Sorority</a></h2>
-                        <img className="d-inline-block rounded-circle w-50" src={das}/>
+                        <img className="d-inline-block rounded-circle w-25" style={{marginBottom:150}} src={das}/>
                         <Carousel.Caption>
                             <h3 style={{color: "rgb(245,128,38)"}}>To create a sisterhood of longevity through values and purpose<br/>
                                 • To build confidence in ourselves and in each other <br/>

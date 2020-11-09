@@ -1,161 +1,161 @@
-
-import React, {useState} from "react";
+import capture from "./images/Capture.PNG";
+import propic from "./images/default.PNG"
+import React, {useEffect, useState} from "react";
 import App from "./App";
 import hp from "./css/hp.css"
 import {useHistory} from "react-router-dom";
 import firebase from "./firebase.js";
-import logo from "./images/Capture.PNG"
 import {Navbar,Nav} from "react-bootstrap";
-import capture from "./images/Capture.PNG";
+import Post from "./Post"
 
 
 
-const Homepage=(logout)=> {
+
+const Homepage=(logout)=>{
+    const height= window.screen.height;
+    const width= window.screen.width;
     const history = useHistory();
-    const [post, setpost] = useState('');
+    const [posts, setPost] = useState([]);
+    const [posttext,setPostText] = useState('')
+    const [mydata,setMydata]=useState([]);
+    const[myname,setmyName]=useState([]);
+    const [user,setUser]=useState('');
 
+
+
+    const redirectTochatroomPage = () => {
+        history.push("/chatroom")
+    }
+
+
+    const redirectToProfilePage = () => {
+        history.push("/profile")
+    }
+    const redirectToResourcesPage = () => {
+        history.push("/resources")
+    }
     const signout = () => {
-        firebase.auth().signOut().then(history.push("/Signin"));
+        firebase.auth().signOut().then(()=>{
+                //this.store.dispatch('clearData')
+                history.push("/Signin");
+            }
+
+        );
     }
-
-    var keys=[];
-    var counts=[];
-
-    var keys=[];
-    var counts=[];
-    const[posts,setPosts]=useState([]);
-    function jk (){
-        let ref = firebase.database().ref("Posts");
-        var results = [];
-        ref.once("value") // query once
-            .then(function (snapshot) {
-                snapshot.forEach(function (childSnapshot) {
-                    let key = childSnapshot.key;
-                    let val = childSnapshot.val();
-                    setPosts(val);
-                });
-            });
-
-    }
-    console.log(posts);
-
-    var db = firebase.database();
-    var ref = db.ref("Posts");
-    ref.orderByChild("posts").on("child_added", function (snapshot) {
-        console.log(snapshot.val().posts);
-    });
+    //loads when homepage is loads
+    useEffect(() => {
+        firebase.auth().onAuthStateChanged(function(usr) {
+            if (usr) {
+                // User is signed in.
+                setUser(usr);
+                //const image = firebase.storage().ref(`images/${user.uid}`);
+            } else {
+                // No user is signed in.
+                signout()
+            }
+        })
+        //grabs posts items from database and places them in our  post array
+        firebase.firestore().collection('posts')
+            .orderBy("timestamp","desc")
+            .onSnapshot((snapshot) =>{
+                setPost(snapshot.docs.map(doc=> ({
+                    id: doc.id,
+                    post: doc.data()
+                })));
+                console.log(posts)
+            })
+    },[])
 
 
+    const savePost = function (user) {
+        console.log(user.photoURL)
 
 
-    const numbers = ["Hello My name is nick. Looking for roommate near uta", "2", "3", "4","5" ];
-    const listItems = numbers.map((number) =>
 
-        <div className="card px-3 py-4 " style={{marginTop: 20}}>
-            <h1> Username</h1>
-            <p1> Timestap</p1>
-            <li>{number}</li>
-            <ul className="list-group">
-                <button className="btn float-Center" style={{
-                    display: 'flex',
-                    background: "rgb(0,100,177)",
-                    justifyContent: 'center',
-                    alignSelf: 'center',
-                    height: 40,
-                    width: 200
-                }}
-                        onClick={savePost}>Comment
-                </button>
+        firebase.auth().onAuthStateChanged(function(usr) {
+            if (usr) {
 
-            </ul>
-        </div>
-
-    );
-
-    var uid = firebase.auth().currentUser.uid;
-    var date = Math.floor(Date.now() / 1000)
-    var ref = firebase.app().database().ref();
-    var usersRef = ref.child('Posts').child(uid + date);
-
-    var savePost = function (user) {
-        usersRef.set({
-            posts: post,
-            time: date,
-            uid:uid
+                firebase.firestore().collection('posts').add({
+                    post: posttext,
+                    timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+                    userimage: usr.photoURL,
+                    username: usr.displayName,
+                })
+                setPostText("");
+            } else {
+                // No user is signed in.
+                signout()
+            }
         })
         alert("Post successful")
     }
+
+
+    console.log(posts)
+
+
+
+
     return (
-        <div style={{background: "rgb(255,250,250)"}}>
-            <nav className="navbar navbar bg-blue" style={{background: "rgb(0,100,177)"}}>
-                <a className="navbar-brand" href="#">
-                    <img src={capture} width="60" height="60"/>
-                </a>
+        <div>
+            {user?(
+                <div style={{background: "rgb(255,250,250)"}}>
+                    <nav className="navbar navbar bg-blue" style={{background: "rgb(0,100,177)"}}>
+                        <a className="navbar-brand" href="#">
+                            <img src={capture} width="60" height="60"/>
+                        </a>
 
-                <div className="topnav" id="myTopnav" style={{width: 800, margin: '0 auto'}}>
-                    <a href="#home">Home</a>
-                    <a href="#chatrooms">Chatrooms</a>
-                    <a href="#ann">Announcement</a>
-                    <a href="#resources">Resources</a>
-                    <a href="#myacc">My account</a>
-                    <a href="#Logout">Logout</a>
-                    <a href="#abu">About Us</a>
+                        <div className="topnav" id="myTopnav" style={{width: 800, margin: '0 auto'}}>
+                            <a href="/homepage">Home</a>
+                            <a onClick={redirectTochatroomPage}>Chatrooms</a>
+                            <a href="#ann">Announcement</a>
+                            <a onClick={redirectToResourcesPage}>Resources</a>
+                            <a onClick={redirectToProfilePage}>My Account</a>
+                            <a onClick={signout}>Logout</a>
+                            <a href="#abu">About Us</a>
 
 
-                </div>
-            </nav>
-
-            <div className="card px-3 py-4">
-                <div className="container px-3">
-                    <label className="mb-1">
-                        <h6 className="">Write Something....</h6>
-                    </label>
-                    <textarea className="mb-4" type="text"
-                              placeholder="Write a post"
-                              onChange={(e) => setpost(e.target.value)}
-                    />
-                    <button Class="btn float-left" style={{background: "rgb(0,100,177)", alignSelf: "right"}}
-                            onClick={savePost}>Post
-                    </button>
-
-                </div>
-            </div>
-
-            <div className="card px-3 py-4 " style={{marginTop: 20}}>
-
-                <div className="post_body">
-                    {numbers.map((number) =>
-
-                        <div className="card px-3 py-4 " style={{marginTop: 20}}>
-                            <h1> Username</h1>
-                            <p1> Timestap</p1>
-                            <li>{number}</li>
-                            <ul className="list-group">
-                                <button className="btn float-Center" style={{
-                                    display: 'flex',
-                                    background: "rgb(0,100,177)",
-                                    justifyContent: 'center',
-                                    alignSelf: 'center',
-                                    height: 40,
-                                    width: 200
-                                }}
-                                        onClick={savePost}>Comment
-                                </button>
-
-                            </ul>
                         </div>
+                    </nav>
 
-                    )}
+                    <div className="card px-3 py-4">
+                        <div className="container px-3">
+                            <label className="mb-1">
+                                <h6 className="">Write Something....</h6>
+                            </label>
+                            <textarea className="mb-4" type="text"
+                                      placeholder="Write a post"
+                                      onChange={(e) => setPostText(e.target.value)}
+                            />
+                            <button className="btn float-left" style={{background: "rgb(0,100,177)", alignSelf: "right"}}
+                                    onClick={savePost}>Post
+                            </button>
+
+                        </div>
+                    </div>
+
+                    <div className="card px-3 py-4 " style={{marginTop: 20}}>
+                        {posts.map(({post,id})=>(
+                            <Post
+                                key={id}
+                                pst_id={id}
+                                username = {post.username}
+                                timestamp ={post.timestamp}
+                                userImage={post.userimage}
+                                post = {post.post}
+                            />
+                        ))}
+
+                    </div>
+
 
                 </div>
 
-            </div>
-
+            ):(<div/>)}
 
         </div>
 
     )
-    return 0;
 
 
 }

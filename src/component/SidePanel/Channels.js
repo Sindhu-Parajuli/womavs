@@ -8,6 +8,7 @@ class Channels extends React.Component {
         channelName:'',
         channelDetails:'',
         channelsRef:firebase.database().ref('channels'),
+        //channelsRef:firebase.firestore().collection('channels'),
         modal:false
     };
 
@@ -39,7 +40,10 @@ class Channels extends React.Component {
 
     handleSubmit = event => {
         event.preventDefault();
-        if (this.isFormValid(this.state)) {
+        console.log(this.state)
+        const {channelName, channelDetails}= this.state;
+        if (channelName && channelDetails) {
+            console.log("here")
             this.addChannel();
         }
     };
@@ -47,11 +51,9 @@ class Channels extends React.Component {
 
 
     handleChange = event => {
-        this.setState({[event.target.name]:event.target.value})
+        this.setState({[event.target.name]:event.target.value});
 
     };
-
-    isFormValid = ({ channelName, channelDetails }) => channelName && channelDetails;
     openModal = () => this.setState({ modal: true });
     closeModal = () => this.setState({modal:false});
 
@@ -79,7 +81,7 @@ class Channels extends React.Component {
                      <Input
                          fluid
                          label="Name of Room"
-                         name = "roomName"
+                         name = "channelName"
                          onChange={this.handleChange}
                        />
 
@@ -89,7 +91,7 @@ class Channels extends React.Component {
                         <Input
                             fluid
                             label="About the Room"
-                            name = "roomDetails"
+                            name = "channelDetails"
                             onChange={this.handleChange}
                         />
 

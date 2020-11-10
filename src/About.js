@@ -63,8 +63,8 @@ const About = () => {
                     </div>
                 </div>
                 <div className={"text-center"}>
-                    <h1> Vision </h1>
-                    <h2>In this time of social isolation, we need social networks more than ever. The goal of this
+                    <h1 style={{color: "rgb(234,222,212)", background: "#0064b1",}}> Vision </h1>
+                    <h2 style={{background: "rgb(245,128,38)",}}>In this time of social isolation, we need social networks more than ever. The goal of this
                         application is to provide women UTA Mavericks with a lifeline to each other. This application
                         will provide female students with the opportunity to share and care through sharing posts,
                         mentorship, and supporting each other.</h2>

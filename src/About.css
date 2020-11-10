@@ -1,7 +1,7 @@
 .background_image{
     background-image: url('./images/pexels-ave-calvar-martinez-3497642.jpg');
     background-size: cover;
-    height: 100vh;
+    height: 100%;
     color: #f5f5f5;
     margin: 0;
 }

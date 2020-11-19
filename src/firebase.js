@@ -15,4 +15,5 @@ const config = {
 const fire=firebase.initializeApp(config);
 // Get the Storage service for the default app
 const defaultStorage = firebase.storage();
-export default firebase;
+//const db = firebase.firestore();
+export default {firebase};

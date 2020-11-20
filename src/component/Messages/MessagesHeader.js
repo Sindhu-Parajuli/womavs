@@ -7,16 +7,20 @@ import CallIcon from "@material-ui/icons/Call";
 import { Avatar } from "@material-ui/core";
 import "./MessagesHeader.css";
 import {useHistory} from "react-router-dom";
+import {useStateValue} from "../../StateProvider";
 
 function MessagesHeader()  {
     const history = useHistory();
+    const [{ user }] = useStateValue();
+    console.log(user)
+
     return (
         <div className="header">
             <div className="header__left">
                 <Avatar
                     className="header__avatar"
-                    //alt={user?.displayName}
-                    //src={user?.photoURL}
+                    alt={user?.displayName}
+                    src={user?.photoURL}
                 />
                 <AccessTimeIcon />
             </div>

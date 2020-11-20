@@ -20,7 +20,7 @@ function Chatroom  () {
             <div className="app__body">
             <SidePanel/>
             <Messages/>
-            <MessageForm/>
+
         </div>
         </div>
 

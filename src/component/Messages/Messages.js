@@ -10,6 +10,7 @@ import InfoOutlinedIcon from "@material-ui/icons/InfoOutlined";
 import "./messages.css";
 import firebase from "../../firebase.js";
 import Chat from "../../Chat";
+import ChatInput from "../../ChatInput";
 
 
 
@@ -72,6 +73,7 @@ function Messages() {
             ))}
 
         </div>
+        <ChatInput channelName={roomDetails?.name} channelId={roomId} />
     </div>
 
 

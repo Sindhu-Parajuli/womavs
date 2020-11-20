@@ -8,12 +8,14 @@ import Sidebaroptions from "./Sidebaroptions";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import AddIcon from "@material-ui/icons/Add";
 import firebase from "../../firebase";
+import {useStateValue} from "../../StateProvider";
 //import {Menu, Icon, Modal, Form, Input, Button} from "semantic-ui-react";
 
 
 function SidePanel ()
 {
     const [channels, setchannels] = useState([]);
+    const [{user}] = useStateValue();
 
     useEffect(() => {
         firebase.firestore().collection("rooms").onSnapshot((snapshot) =>
@@ -32,7 +34,8 @@ function SidePanel ()
             <div className="sidebar">
                 <div className="sidebar__header">
                     <div className="sidebar__info">
-                        <h2>WOMAVS</h2>
+                        <h2user>WOMAVS</h2user>
+
                         {/*<Channels/>*/}
                     </div>
 

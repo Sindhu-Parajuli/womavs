@@ -8,7 +8,8 @@ import Register from "./Register";
 import firebase from "./firebase.js";
 import {useHistory} from "react-router-dom";
 import capture from "./images/Capture.PNG";
-
+import { useStateValue } from "./StateProvider";
+import { actionTypes } from "./reducer";
 
 
 const Signin = () => {
@@ -21,7 +22,7 @@ const Signin = () => {
     const [pError, setpError] = useState('');
     const [exists, setExists] = useState('false');
     const [success] = useState('false');
-
+    const [state, dispatch] = useStateValue();
 
 
     const redirectToPage = () => {
@@ -43,6 +44,13 @@ const Signin = () => {
                 firebase.auth().onAuthStateChanged((usr) => {
                     if (usr) {
                        console.log(usr)
+                        dispatch({
+                            type: actionTypes.SET_USER,
+                            user: result.user,
+                        });
+
+
+
                         //Make sure users email is verified before they signin
                         if (usr.emailVerified === false) {
                             alert("Email Not Verified! Please check your email for the verification link");

@@ -1,0 +1,24 @@
+.sidebar {
+    color: white;
+    flex: 0.3;
+    background-color: var(--mavcolor);
+    border-top: 1px solid #49274b;
+    max-width: 260px;
+}
+.sidebar__header {
+    display: flex;
+
+    padding-bottom: 10px;
+    padding: 13px;
+}
+
+.sidebar__info {
+    flex: 1;
+}
+
+.sidebar__info > h2 {
+    font-size: 30px;
+    color: black;
+    font-weight: 1000;
+    margin-bottom: 5px;
+}

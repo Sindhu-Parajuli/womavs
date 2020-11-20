@@ -3,7 +3,7 @@
     align-items: center;
     justify-content: space-between;
     padding: 10px 0;
-    background-color: dodgerblue;
+    background-color:var(--mavcolor) ;
     color: white;
 }
 
@@ -21,7 +21,7 @@
 
 .header__search {
     flex: 0.4;
-    background-color: #421f44;
+    background-color: whitesmoke ;
     text-align: center;
     display: flex;
     padding: 0 50px;
@@ -37,10 +37,20 @@
     min-width: 35vw;
 }
 
+
+.header__call {
+    flex: 0.3;
+    display: flex;
+    align-items: center;
+    margin-left: 50px;
+
+}
+
 .header__right {
     flex: 0.3;
     display: flex;
-    align-items: flex-end;
+    /*align-items: flex-end;*/
+    margin-right: 80px;
 }
 
 .header__right > .MuiSvgIcon-root {

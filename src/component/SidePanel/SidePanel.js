@@ -1,39 +1,59 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Row, Col} from "react-bootstrap";
 import {Input, Label, Menu} from 'semantic-ui-react'
 import Channels from "./Channels";
+import "./SidePanel.css";
+import { useHistory } from "react-router-dom";
+import Sidebaroptions from "./Sidebaroptions";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import AddIcon from "@material-ui/icons/Add";
+import firebase from "../../firebase";
+//import {Menu, Icon, Modal, Form, Input, Button} from "semantic-ui-react";
 
-class SidePanel extends React.Component {
 
-    render() {
-        return (
-            <Col md={8}>
-                <Menu vertical size={"large"}>
+function SidePanel ()
+{
+    const [channels, setchannels] = useState([]);
 
-                    <Menu.Item
-                        className={"firstMenu"}
-                        size="large"
-                        inverted
-                        fixed="left"
-                        vertical
-                        style={{
-                            height: "890px",
-                            width: "300px",
-                            background: "#2ca5ca",
-                            fontSize: "1.2rem",
-                            textAlign: "center"
+    useEffect(() => {
+        firebase.firestore().collection("rooms").onSnapshot((snapshot) =>
+            setchannels(
+                snapshot.docs.map((doc) => ({
+                    id: doc.id,
+                    name: doc.data().name,
+                }))
+            )
+        );
+    }, []);
 
-                        }}
-                    >
-                        <label><b><h1>WOMAVS</h1></b></label>
-                        <Channels />
-                    </Menu.Item>
-                </Menu>
-            </Col>
 
-            //<Col md={1}>Side Panel</Col>
-        )
-    }
+
+    return (
+            <div className="sidebar">
+                <div className="sidebar__header">
+                    <div className="sidebar__info">
+                        <h2>WOMAVS</h2>
+                        {/*<Channels/>*/}
+                    </div>
+
+                </div>
+
+
+                <hr />
+                <Sidebaroptions Icon={AddIcon} addChannelOption title="Add Channel" />
+
+                {/* Connect to dB and list all the channels */}
+                {/* <SidebarOption ... /> */}
+                {channels.map((channel) => (
+                    <Sidebaroptions title={channel.name} id={channel.id} />
+                ))}
+
+
+            </div>
+
+
+        );
+
 }
 
 export default SidePanel;

@@ -26,6 +26,7 @@ export class RenderApp extends React.Component {
                     <Route path={"/resources"} exact component={Resources}/>
                     <Route path={"/profile"} exact component = {Profile}/>
                     <Route path={"/chatroom"} exact component={Chatroom}/>
+                    <Route path={"/chatroom/room/:roomId"} exact component={Chatroom}/>
                     <Route path={"/forgotpassword"} exact component={ForgotPassword}/>
                     <Route path={"/announcement"} exact component={Announcement}/>
                     <Route path={"/about"} exact component={About}/>

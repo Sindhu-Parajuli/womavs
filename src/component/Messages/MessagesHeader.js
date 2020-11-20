@@ -1,33 +1,44 @@
 import React from 'react'
 import {Header , Segment , Input , Icon} from 'semantic-ui-react'
+import AccessTimeIcon from "@material-ui/icons/AccessTime";
+import SearchIcon from "@material-ui/icons/Search";
+import HomeIcon from "@material-ui/icons/Home";
+import CallIcon from "@material-ui/icons/Call";
+import { Avatar } from "@material-ui/core";
+import "./MessagesHeader.css";
+import {useHistory} from "react-router-dom";
 
-class MessagesHeader extends React.Component {
-    render()
-    {
-        return(
-            <segment clearing>
-                <Header fluid = "true" as ="h2" floated="left" style={{marginBottom:0}}>
-                  <span>
-                      <b> Rooms  </b>
+function MessagesHeader()  {
+    const history = useHistory();
+    return (
+        <div className="header">
+            <div className="header__left">
+                <Avatar
+                    className="header__avatar"
+                    //alt={user?.displayName}
+                    //src={user?.photoURL}
+                />
+                <AccessTimeIcon />
+            </div>
+            <div className="header__search">
+                <SearchIcon />
+                <input placeholder="Search womavs" type="text" />
+            </div>
+            <div className="header__call">
+                <CallIcon />
 
-                    <Icon name = {"star outline"} color = "orange"/>
+            </div>
 
-                </span>
 
-                </Header>
+            <div className="header__right">
+                <HomeIcon onClick={() => {
+                    history.push("/Homepage")
+                }}/>
+            </div>
+        </div>
+    );
 
-                <Header floated= "right">
-                    <Input
-                        size = "mini"
-                        icon = "search"
-                        name = "searchTerm"
-                        placeholder = "Search Messages"
-                        />
 
-                </Header>
-            </segment>
 
-        )
-    }
 }
 export default MessagesHeader;

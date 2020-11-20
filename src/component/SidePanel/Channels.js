@@ -1,8 +1,10 @@
 import React, {useEffect, useState} from "react";
 import {Menu, Icon, Modal, Form, Input, Button} from "semantic-ui-react";
 import firebase from "../../firebase.js";
+import { useHistory } from "react-router-dom";
 
-function Channels() {
+function Channels(id,name) {
+    const history = useHistory();
     const [channels, setchannels] = useState([]);
     const [channelName, setchannelName] = useState('');
     const [channelDetails, setchannelDetails] = useState('');
@@ -28,6 +30,14 @@ function Channels() {
             setmodal(false);
         })
     };
+    const selectChannel = () => {
+        if (id) {
+            history.push(`/chatroom/room/${id}`);
+        } else {
+            history.push(name);
+        }
+    };
+
 
     const displayChannels = channels =>
         channels.length > 0 &&
@@ -36,11 +46,14 @@ function Channels() {
                 //key={channel.id}
                 //onClick={() => console.log(channel)}
                 name={channel.name}
+                id={channel.id}
                 style={{opacity: 0.7}}
             >
                 # {channel.name}
             </Menu.Item>
         ));
+
+
 
     function handleSubmit(event) {
         event.preventDefault();
@@ -63,7 +76,7 @@ function Channels() {
                 <Menu.Item>
           <span>
             <Icon name="exchange"/> ROOMS
-          </span>({channels.length}) <Icon name="add" onClick={() => setmodal(true)}/>
+          </span>({channels.length}) <Icon name="add"  onClick={() => setmodal(true)}/>
                 </Menu.Item>
                 {displayChannels(channels)}
             </Menu.Menu>

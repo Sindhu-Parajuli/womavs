@@ -1,9 +1,10 @@
+{/*
 import React, { useState } from "react";
 
 import "./ChatInput.css";
 import { useStateValue } from "./StateProvider";
 import firebase from "firebase";
-
+/*
 function ChatInput({ channelName, channelId }) {
     const [input, setInput] = useState("");
     const [{ user }] = useStateValue();
@@ -40,3 +41,4 @@ function ChatInput({ channelName, channelId }) {
 }
 
 export default ChatInput;
+*/}

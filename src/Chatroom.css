@@ -9,6 +9,7 @@ body {
 }
 
 .message__form {
+
     position: fixed !important;
     bottom: 0;
     margin-left: 260px !important;

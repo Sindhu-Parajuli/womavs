@@ -73,7 +73,7 @@ function Messages() {
             ))}
 
         </div>
-        <ChatInput channelName={roomDetails?.name} channelId={roomId} />
+        <MessageForm channelName={roomDetails?.name} channelId={roomId} />
     </div>
 
 

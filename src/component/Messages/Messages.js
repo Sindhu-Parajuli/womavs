@@ -9,35 +9,41 @@ import StarBorderOutlinedIcon from "@material-ui/icons/StarBorderOutlined";
 import InfoOutlinedIcon from "@material-ui/icons/InfoOutlined";
 import "./messages.css";
 import firebase from "../../firebase.js";
+import Chat from "../../Chat";
 
 
-//class Message extends React.Component {
 
-function Message() {
+function Messages() {
     const {roomId} = useParams();
     const [roomDetails, setRoomDetails] = useState(null);
     const [roomMessages, setRoomMessages] = useState([]);
+
     useEffect(() => {
         if (roomId) {
             firebase.firestore().collection("rooms")
                 .doc(roomId)
                 .onSnapshot((snapshot) => setRoomDetails(snapshot.data()));
         }
+        if (roomId) {
+            firebase.firestore().collection("rooms")
 
-        firebase.firestore().collection("rooms")
-            .doc(roomId)
-            .collection("messages")
-            .orderBy("timestamp", "asc")
-            .onSnapshot((snapshot) =>
-                setRoomMessages(snapshot.docs.map((doc) => doc.data()))
-            );
+                .doc(roomId)
+                .collection("messages")
+                .orderBy("timestamp", "asc")
+                .onSnapshot((snapshot) =>
+                    setRoomMessages(snapshot.docs.map((doc) => doc.data()))
+                );
+        }
     }, [roomId]);
+
+
+
 
  console.log(roomDetails);
 
+ console.log(roomMessages);
 
-
-    return (
+ return (
     <div className="chat">
         <div className="chat__header">
         <div className="chat__headerLeft">
@@ -53,9 +59,26 @@ function Message() {
   </p>
   </div>
   </div>
+
+
+        <div className="chat__messages">
+            {roomMessages.map(({ message, timestamp, user, userImage }) => (
+                <Chat
+                    message={message}
+                    timestamp={timestamp}
+                    user={user}
+                    userImage={userImage}
+                />
+            ))}
+
+        </div>
     </div>
+
+
+
+
 );
 
 }
 
-export default Message;
+export default Messages;

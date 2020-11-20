@@ -5,7 +5,7 @@ import "./Chatroom.css";
 import {Row, Col} from "react-bootstrap";
 import SidePanel from "./component/SidePanel/SidePanel";
 import ColorPanel from "./component/ColorPanel/ColorPanel";
-import Message from "./component/Messages/Messages";
+import Messages from "./component/Messages/Messages";
 import MetaPanel from "./component/MetaPanel/MetaPanel";
 import MessagesHeader from "./component/Messages/MessagesHeader";
 import MessageForm from "./component/Messages/MessageForm";
@@ -19,7 +19,7 @@ function Chatroom  () {
             <MessagesHeader/>
             <div className="app__body">
             <SidePanel/>
-            <Message/>
+            <Messages/>
             <MessageForm/>
         </div>
         </div>

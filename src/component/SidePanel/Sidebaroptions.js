@@ -8,7 +8,7 @@ function Sidebaroptions({ Icon, title, id, addChannelOption }) {
 
     const selectChannel = () => {
         if (id) {
-            history.push(`chatroom/room/${id}`);
+            history.push(`/chatroom/room/${id}`);
         } else {
             history.push(title);
         }

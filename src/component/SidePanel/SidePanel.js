@@ -34,7 +34,7 @@ function SidePanel ()
             <div className="sidebar">
                 <div className="sidebar__header">
                     <div className="sidebar__info">
-                        <h2user>WOMAVS</h2user>
+                        <h2>WOMAVS</h2>
 
                         {/*<Channels/>*/}
                     </div>

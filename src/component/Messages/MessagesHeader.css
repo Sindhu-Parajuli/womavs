@@ -49,9 +49,19 @@
 .header__right {
     flex: 0.3;
     display: flex;
+
     /*align-items: flex-end;*/
-    margin-right: 80px;
+    margin-right: 50px;
 }
+
+
+.header__rights {
+    flex: 0.3;
+    display: flex;
+    /*align-items: flex-end;*/
+    margin-right: 60px;
+}
+
 
 .header__right > .MuiSvgIcon-root {
     margin-left: auto;

@@ -75,10 +75,7 @@ function Messages() {
         </div>
         <MessageForm channelName={roomDetails?.name} channelId={roomId} />
     </div>
-
-
-
-
+     
 );
 
 }

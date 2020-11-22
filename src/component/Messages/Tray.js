@@ -4,6 +4,7 @@ import TrayButton, {
     TYPE_MUTE_MIC,
     TYPE_SCREEN,
     TYPE_LEAVE,
+
 } from './TrayButton';
 import CallObjectContext from './CallObjectContext';
 import {logDailyEvent} from './logUtils';

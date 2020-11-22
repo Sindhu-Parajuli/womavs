@@ -11,6 +11,8 @@ import "./messages.css";
 import firebase from "../../firebase.js";
 import Chat from "../../Chat";
 import ChatInput from "../../ChatInput";
+import VideoCallButton from "./VideoCallButton";
+import VideoCallApp from "./VideoCallApp";
 
 
 
@@ -56,7 +58,7 @@ function Messages() {
 
    <div className="chat__headerRight">
  <p>
- <InfoOutlinedIcon /> Details
+ <VideoCallApp/>
   </p>
   </div>
   </div>

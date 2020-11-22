@@ -11,7 +11,6 @@ import ForgotPassword from "./ForgotPassword"
 import Resources from "./Resources";
 import Chatroom from "./Chatroom";
 
-
 export class RenderApp extends React.Component {
     renderMain() {
         return (

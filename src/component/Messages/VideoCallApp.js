@@ -8,7 +8,8 @@ import DailyIframe from '@daily-co/daily-js';
 import {logDailyEvent} from './logUtils';
 import VideoCallButton from "./VideoCallButton";
 
-const STATE_IDLE = 'STATE_IDLE';
+
+export const STATE_IDLE = 'STATE_IDLE';
 const STATE_CREATING = 'STATE_CREATING';
 const STATE_JOINING = 'STATE_JOINING';
 const STATE_JOINED = 'STATE_JOINED';
@@ -19,7 +20,6 @@ export default function VideoCallApp() {
     const [appState, setAppState] = useState(STATE_IDLE);
     const [roomUrl, setRoomUrl] = useState(null);
     const [callObject, setCallObject] = useState(null);
-
     /**
      * Creates a new call room.
      */

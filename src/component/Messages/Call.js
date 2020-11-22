@@ -2,6 +2,7 @@ import React, {useEffect, useContext, useReducer, useCallback} from 'react';
 import Tile from './Tile';
 import CallObjectContext from './CallObjectContext';
 import CallMessage from './CallMessage';
+import './Call.css';
 import {
     initialCallState,
     CLICK_ALLOW_TIMEOUT,

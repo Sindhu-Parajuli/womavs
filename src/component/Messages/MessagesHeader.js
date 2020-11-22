@@ -34,7 +34,7 @@ function MessagesHeader() {
                 <input placeholder="Search womavs" type="text"/>
             </div>
             <div className="header__call">
-                <VideoCallApp/>
+                {/*<VideoCallApp/>*/}
 
             </div>
 

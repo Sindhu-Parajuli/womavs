@@ -17,3 +17,6 @@ body {
     right: 1em;
     z-index: 200;
 }
+.emoijpicker {
+    position: absolute;
+}

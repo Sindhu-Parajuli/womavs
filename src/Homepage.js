@@ -7,7 +7,7 @@ import {useHistory} from "react-router-dom";
 import firebase from "./firebase.js";
 import {Navbar,Nav} from "react-bootstrap";
 import Post from "./Post"
-
+import Navigation from "./Navbar"
 
 
 
@@ -20,28 +20,6 @@ const Homepage=(logout)=>{
     const [mydata,setMydata]=useState([]);
     const[myname,setmyName]=useState([]);
     const [user,setUser]=useState('');
-
-
-
-    const redirectToAnnouncementPage = () => {
-        history.push("/announcement")
-    }
-
-
-    const redirectTochatroomPage = () => {
-        history.push("/chatroom")
-    }
-
-
-    const redirectToProfilePage = () => {
-        history.push("/profile")
-    }
-    const redirectToResourcesPage = () => {
-        history.push("/resources")
-    }
-const redirectToAboutUsPage = () =>{
-        history.push("/about")
-}
 
 
     const signout = () => {
@@ -110,24 +88,7 @@ const redirectToAboutUsPage = () =>{
         <div>
             {user?(
                 <div style={{background: "rgb(255,250,250)"}}>
-                    <nav className="navbar navbar bg-blue" style={{background: "rgb(0,100,177)"}}>
-                        <a className="navbar-brand" href="#">
-                            <img src={capture} width="60" height="60"/>
-                        </a>
-
-                        <div className="topnav" id="myTopnav" style={{width: 800, margin: '0 auto'}}>
-                            <a href="/homepage">Home</a>
-                            <a onClick={redirectTochatroomPage}>Chatrooms</a>
-                        <a onClick={redirectToAnnouncementPage}>Announcement</a>
-                            <a onClick={redirectToResourcesPage}>Resources</a>
-                            <a onClick={redirectToProfilePage}>My Account</a>
-                            <a onClick={signout}>Logout</a>
-                        <a onClick={redirectToAboutUsPage}>About Us</a>
-
-
-                    </div>
-                </nav>
-
+                   <Navigation/>
                     <div className="card px-3 py-4">
                         <div className="container px-3">
                             <label className="mb-1">

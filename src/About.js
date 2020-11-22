@@ -1,28 +1,14 @@
 import React, {useState} from "react";
 import 'bootstrap/dist/css/bootstrap.css'
 import capture from "./images/Capture.PNG";
-import "./About.css"
+import "./css/About.css"
 import {useHistory} from "react-router-dom";
 import firebase from "./firebase";
-
+import Navigation from "./Navbar"
 
 const About = () => {
     const history = useHistory()
-    const redirectToAnnouncementPage =() =>{
-        history.push("/announcement")
-    }
-    const redirectTochatroomPage = () => {
-        history.push("/chatroom")
-    }
-    const redirectToProfilePage = () => {
-        history.push("/profile")
-    }
-    const redirectToResourcesPage = () => {
-        history.push("/resources")
-    }
-    const redirectToAboutUsPage = () => {
-        history.push("/about")
-    }
+
 
     const signout = () => {
         firebase.auth().signOut().then(() => {
@@ -32,24 +18,8 @@ const About = () => {
         );
     }
     return (
-        <div >
-            <nav className="navbar navbar bg-blue" style={{background: "rgb(0,100,177)"}}>
-                <a className="navbar-brand" href="#">
-                    <img src={capture} width="60" height="60"/>
-                </a>
-
-                <div className="topnav" id="myTopnav" style={{width: 800, margin: '0 auto'}}>
-                    <a href="/homepage">Home</a>
-                    <a onClick={redirectTochatroomPage}>Chatrooms</a>
-                    <a onClick={redirectToAnnouncementPage }>Announcement</a>
-                    <a onClick={redirectToResourcesPage}>Resources</a>
-                    <a onClick={redirectToProfilePage}>My Account</a>
-                    <a onClick={signout}>Logout</a>
-                    <a onClick={redirectToAboutUsPage}>About Us</a>
-
-
-                </div>
-            </nav>
+        <div>
+            <Navigation/>
 
             <div className={"background_image"}>
                 <div className={"text-center"}>
@@ -64,7 +34,8 @@ const About = () => {
                 </div>
                 <div className={"text-center"}>
                     <h1 style={{color: "rgb(234,222,212)", background: "#0064b1",}}> Vision </h1>
-                    <h2 style={{background: "rgb(245,128,38)",}}>In this time of social isolation, we need social networks more than ever. The goal of this
+                    <h2 style={{background: "rgb(245,128,38)",}}>In this time of social isolation, we need social
+                        networks more than ever. The goal of this
                         application is to provide women UTA Mavericks with a lifeline to each other. This application
                         will provide female students with the opportunity to share and care through sharing posts,
                         mentorship, and supporting each other.</h2>

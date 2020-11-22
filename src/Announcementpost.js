@@ -5,20 +5,20 @@ import App from "./App";
 import hp from "./css/hp.css"
 import {useHistory} from "react-router-dom";
 import firebase from "./firebase.js";
-import {Navbar,Nav} from "react-bootstrap";
+import {Navbar, Nav} from "react-bootstrap";
 import {Avatar} from "@material-ui/core";
 
 
-const AnnouncementPost = ({username, timestamp, userImage,post,title}) =>{
+const AnnouncementPost = ({username, timestamp, userImage, post, title}) => {
 
-    return(
+    return (
         <div className="post_body">
             <div className="card px-3 py-4 " style={{marginTop: 20}}>
-                <div className={"row"} style={{marginLeft:5}}>
+                <div className={"row"} style={{marginLeft: 5}}>
                     <Avatar src={userImage}></Avatar>
                     <p>{new Date(timestamp?.toDate()).toUTCString()}</p>
                 </div>
-                <div id={"post_header"} >
+                <div id={"post_header"}>
 
                     <h4>{username}</h4>
 
@@ -35,10 +35,10 @@ const AnnouncementPost = ({username, timestamp, userImage,post,title}) =>{
                     <h2>{title}</h2>
 
                 </div>
-                <hr style={{  background: "rgb(245,128,38)" }}/>
-                    <div id={"post_header"} >
-                        <h4>{post}</h4>
-                    </div>
+                <hr style={{background: "rgb(245,128,38)"}}/>
+                <div id={"post_header"}>
+                    <h4>{post}</h4>
+                </div>
 
 
             </div>

@@ -1,4 +1,3 @@
-import capture from "./images/Capture.PNG";
 import caps from "./images/caps.jpg";
 import swe from "./images/swe.png";
 import awm from "./images/awm.jpg";
@@ -6,34 +5,17 @@ import das from "./images/das.jpg";
 import WOG from "./images/WOG.jpg";
 import wib from "./images/wib.PNG"
 import React, {Component} from "react";
-import "./index.css";
-//import 'bootstrap/dist/css/bootstrap.min.css'
+import "./css/index.css";
 import 'bootstrap/dist/css/bootstrap.css'
-//import "react-bootstrap-carousel/dist/react-bootstrap-carousel.css"
 import {Carousel} from "react-bootstrap"
 import {useHistory} from "react-router-dom";
 import firebase from "./firebase";
-import "./Resources.css";
-
+import "./css/Resources.css";
+import Navigation from "./Navbar"
 
 const Resources=(logout) => {
 
     const history = useHistory();
-    const redirectTochatroomPage = () => {
-        history.push("/chatroom")
-    }
-    const redirectToProfilePage = () => {
-        history.push("/profile")
-    }
-    const redirectToResourcesPage = () => {
-        history.push("/resources")
-    }
-    const redirectToAnnouncementPage = () => {
-        history.push("/announcement")
-    }
-    const redirectToAboutUsPage = () => {
-        history.push("/about")
-    }
 
    const signout = () => {
         firebase.auth().signOut().then(()=>{
@@ -46,20 +28,7 @@ const Resources=(logout) => {
     return (
         <div>
             <div>
-                <nav className="navbar navbar bg-blue" style={{background: "rgb(0,100,177)"}}>
-                    <a className="navbar-brand" href="#">
-                        <img src={capture} width="60" height="60"/>
-                    </a>
-                    <div className="topnav" id="myTopnav" style={{width: 800, margin: '0 auto'}}>
-                        <a href="/homepage">Home</a>
-                        <a onClick={redirectTochatroomPage}>Chatrooms</a>
-                        <a onClick={redirectToAnnouncementPage}>Announcement</a>
-                        <a onClick={redirectToAboutUsPage}>About Us</a>
-                        <a onClick={redirectToResourcesPage}>Resources</a>
-                        <a onClick={redirectToProfilePage}>My Account</a>
-                        <a onClick={signout}>Logout</a>
-                    </div>
-                </nav>
+                <Navigation/>
             </div>
                 <Carousel>
                     <Carousel.Item >

@@ -4,15 +4,11 @@ import soc from './images/socialize.png'
 import ct from './images/chatrooms.jpeg'
 import men from './images/mentor.jpg'
 import metoo from './images/me too.jpg'
-import profilepic from './images/default.PNG'
-import Signin from "./Signin";
-import {Router, Switch, Route, Link} from "react-router-dom";
-import ReactDOM from "react-dom";
-import App from "./App"
 import firebase from "./firebase"
 import {useHistory} from 'react-router-dom';
 import {Checkbox,FormGroup, FormControlLabel,FormControl} from '@material-ui/core';
-import "./Register.css"
+import "./css/Register.css"
+
 const Register = (props) => {
     console.log(props)
     const history = useHistory();

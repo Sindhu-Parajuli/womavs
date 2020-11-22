@@ -1,29 +1,22 @@
 import capture from "./images/Capture.PNG";
-import propic from "./images/default.PNG"
 import React, {useEffect, useState} from "react";
-import App from "./App";
-import hp from "./css/hp.css"
 import {useHistory} from "react-router-dom";
 import firebase from "./firebase.js";
-import {Navbar,Nav} from "react-bootstrap";
-import Post from "./Post"
 import AnnouncementPost from "./Announcementpost";
 
 
-
-
-const Announcement =(logout)=>{
-    const height= window.screen.height;
-    const width= window.screen.width;
+const Announcement = (logout) => {
+    const height = window.screen.height;
+    const width = window.screen.width;
     const history = useHistory();
     const [posts, setPost] = useState([]);
-    const [posttitle,setPostTitle] = useState('')
-    const [posttext,setPostText] = useState('')
-    const [mydata,setMydata]=useState([]);
-    const[myname,setmyName]=useState([]);
-    const [user,setUser]=useState('');
+    const [posttitle, setPostTitle] = useState('')
+    const [posttext, setPostText] = useState('')
+    const [mydata, setMydata] = useState([]);
+    const [myname, setmyName] = useState([]);
+    const [user, setUser] = useState('');
 
-    const  redirectToAboutUsPage = () =>{
+    const redirectToAboutUsPage = () => {
         history.push("/about")
     }
 
@@ -41,16 +34,15 @@ const Announcement =(logout)=>{
         history.push("/resources")
     }
     const signout = () => {
-        firebase.auth().signOut().then(()=>{
+        firebase.auth().signOut().then(() => {
                 //this.store.dispatch('clearData')
                 history.push("/Signin");
             }
-
         );
     }
     //loads when homepage is loads
     useEffect(() => {
-        firebase.auth().onAuthStateChanged(function(usr) {
+        firebase.auth().onAuthStateChanged(function (usr) {
             if (usr) {
                 // User is signed in.
                 setUser(usr);
@@ -61,24 +53,25 @@ const Announcement =(logout)=>{
             }
         })
 
-        let date = new Date ();
-console.log( date)
-        date.setDate(date.getDate()-7)
-        console.log( date);
+        let date = new Date();
+        console.log(date)
+        date.setDate(date.getDate() - 7)
+        console.log(date);
         //grabs posts items from database and places them in our  post array
         firebase.firestore().collection('announcements')
-            .orderBy("timestamp","desc")
-            .where("timestamp",">=",firebase.firestore.Timestamp.fromDate(date))
-            .onSnapshot((snapshot) =>{setPost(snapshot.docs.map((doc)=>doc.data()))
+            .orderBy("timestamp", "desc")
+            .where("timestamp", ">=", firebase.firestore.Timestamp.fromDate(date))
+            .onSnapshot((snapshot) => {
+                setPost(snapshot.docs.map((doc) => doc.data()))
                 console.log(posts)
             })
-    },[])
+    }, [])
 
 
     const savePost = function (user) {
         console.log(user.photoURL)
 
-        firebase.auth().onAuthStateChanged(function(usr) {
+        firebase.auth().onAuthStateChanged(function (usr) {
             if (usr) {
 
                 firebase.firestore().collection('announcements').add({
@@ -99,11 +92,9 @@ console.log( date)
     console.log(posts)
 
 
-
-
     return (
         <div>
-            {user?(
+            {user ? (
                 <div style={{background: "rgb(255,250,250)"}}>
                     <nav className="navbar navbar bg-blue" style={{background: "rgb(0,100,177)"}}>
                         <a className="navbar-brand" href="#">
@@ -136,7 +127,8 @@ console.log( date)
                                       placeholder="Write a announcement"
                                       onChange={(e) => setPostText(e.target.value)}
                             />
-                            <button className="btn float-left" style={{background: "rgb(245,128,38)",color:"white", alignSelf: "right"}}
+                            <button className="btn float-left"
+                                    style={{background: "rgb(245,128,38)", color: "white", alignSelf: "right"}}
                                     onClick={savePost}>Post
                             </button>
 
@@ -144,13 +136,13 @@ console.log( date)
                     </div>
 
                     <div className="card px-3 py-4 " style={{marginTop: 20}}>
-                        {posts.map(post =>(
+                        {posts.map(post => (
                             <AnnouncementPost
-                                username = {post.username}
-                                timestamp ={post.timestamp}
+                                username={post.username}
+                                timestamp={post.timestamp}
                                 userImage={post.userimage}
-                                post = {post.post}
-                                title = {post.title}
+                                post={post.post}
+                                title={post.title}
                             />
                         ))}
 
@@ -159,7 +151,7 @@ console.log( date)
 
                 </div>
 
-            ):(<div/>)}
+            ) : (<div/>)}
 
         </div>
 

@@ -31,6 +31,19 @@ const Navigation = ()=>{
     }
 
 
+    const check =() =>
+    {
+        const r = window.confirm("Do you really want to Sign Out?");
+        if(r == true)
+        {
+            {signout()}
+        }
+        else
+        {
+            window.close();
+        }
+    }
+
     const signout = () => {
 
         firebase.auth().signOut().then(()=>{
@@ -52,7 +65,7 @@ const Navigation = ()=>{
                 <a onClick={redirectToAnnouncementPage}>Announcement</a>
                 <a onClick={redirectToResourcesPage}>Resources</a>
                 <a onClick={redirectToProfilePage}>My Account</a>
-                <a onClick={signout}>Logout</a>
+                <a onClick={check}>Logout</a>
                 <a onClick={redirectToAboutUsPage}>About Us</a>
 
 

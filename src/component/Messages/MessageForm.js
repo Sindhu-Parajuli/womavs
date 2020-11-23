@@ -6,9 +6,9 @@ import {useStateValue} from "../../StateProvider";
 import firebase from "firebase";
 
 
-function MessageForm({ channelName, channelId }) {
+function MessageForm({channelName, channelId}) {
     const [input, setInput] = useState("");
-    const [{ user }] = useStateValue();
+    const [{user}] = useStateValue();
     const [emojiPicker, setEmojiPicker] = useState(false);
     const [message, setmessage] = useState("");
 
@@ -18,20 +18,20 @@ function MessageForm({ channelName, channelId }) {
         firebase.auth().onAuthStateChanged(function (usr) {
             //e.preventDefault();
 
-                if (channelId && usr && input) {
-                    e.preventDefault();
-                    firebase.firestore().collection("rooms").doc(channelId).collection("messages").add({
-                        message: input,
-                        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-                        user: usr.displayName,
-                        userImage: usr.photoURL,
-                    });
+            if (channelId && usr && input) {
+                e.preventDefault();
+                firebase.firestore().collection("rooms").doc(channelId).collection("messages").add({
+                    message: input,
+                    timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+                    user: usr.displayName,
+                    userImage: usr.photoURL,
+                });
 
-                    setInput("");
-                }
+                setInput("");
+            }
 
 
-            })
+        })
     }
 
 
@@ -56,8 +56,6 @@ function MessageForm({ channelName, channelId }) {
     };
 
 
-
-
     const handleAddEmoji = emoji => {
         const newMessage = colonToUnicode(` ${input} ${emoji.colons} `);
         setInput(newMessage);
@@ -68,62 +66,60 @@ function MessageForm({ channelName, channelId }) {
     };
 
 
-
     return (
-            <Segment className="message__form">
-                {emojiPicker && (
-                    <Picker
-                        set="apple"
-                        onSelect={handleAddEmoji}
-                        className="emojipicker"
-                        title="Pick your emoji"
-                        emoji="point_up"
-                    />
-                )}
-
-
-                <Input
-
-
-                    fluid
-                    name="message"
-                    style={{ marginBottom: "0.3em" }}
-                    style={{ marginTop: "0em" }}
-                    label={
-                        <Button
-                            //icon={"add"}
-
-                            icon={emojiPicker ? "close" : "add"}
-                            content={emojiPicker ? "Close" : null}
-                            onClick={handleTogglePicker}
-                        />
-                    }
-                    placeholder="Write your message"
-                    value={input}
-                    onChange={(e) => setInput(e.target.value)}
-
-                    placeholder={`Message #${channelName?.toLowerCase()}`}
+        <Segment className="message__form">
+            {emojiPicker && (
+                <Picker
+                    set="apple"
+                    onSelect={handleAddEmoji}
+                    className="emojipicker"
+                    title="Pick your emoji"
+                    emoji="point_up"
                 />
+            )}
 
 
+            <Input
 
-                <Button.Group icon widths="2">
+
+                fluid
+                name="message"
+                style={{marginBottom: "0.3em"}}
+                style={{marginTop: "0em"}}
+                label={
                     <Button
-                        color="orange"
-                        content="Add Reply"
-                        labelPosition="left"
-                        icon="edit"
-                        onClick={sendMessage}
+                        //icon={"add"}
+
+                        icon={emojiPicker ? "close" : "add"}
+                        content={emojiPicker ? "Close" : null}
+                        onClick={handleTogglePicker}
                     />
-                    <Button
-                        color="blue"
-                        content="Upload Media"
-                        labelPosition="right"
-                        icon="cloud upload"
-                    />
-                </Button.Group>
-            </Segment>
-        );
+                }
+                placeholder="Write your message"
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+
+                placeholder={`Message #${channelName?.toLowerCase()}`}
+            />
+
+
+            <Button.Group icon widths="2">
+                <Button
+                    color="orange"
+                    content="Add Reply"
+                    labelPosition="left"
+                    icon="edit"
+                    onClick={sendMessage}
+                />
+                <Button
+                    color="blue"
+                    content="Upload Media"
+                    labelPosition="right"
+                    icon="cloud upload"
+                />
+            </Button.Group>
+        </Segment>
+    );
 
 }
 

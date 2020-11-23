@@ -23,13 +23,17 @@ const Homepage=(logout)=>{
 
 
     const signout = () => {
-        firebase.auth().signOut().then(()=>{
-                //this.store.dispatch('clearData')
-                history.push("/Signin");
-            }
 
-        );
-    }
+            firebase.auth().signOut().then(() => {
+                    //this.store.dispatch('clearData')
+                    history.push("/Signin");
+                }
+            );
+        }
+
+
+
+
     //loads when homepage is loads
     useEffect(() => {
         firebase.auth().onAuthStateChanged(function(usr) {

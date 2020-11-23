@@ -1,5 +1,5 @@
 body {
-    --mavcolor:#2ca5ca;
+    --mavcolor:rgb(0,100,177);
     overflow: hidden;
 }
 
@@ -10,12 +10,14 @@ body {
 
 .message__form {
 
+
     position: fixed !important;
     bottom: 0;
-    margin-left: 260px !important;
+    margin-left: 200px !important;
+    margin-top: 0px;
     left: 0;
     right: 1em;
-    z-index: 200;
+    /*z-index: 200;*/
 }
 .emoijpicker {
     position: absolute;

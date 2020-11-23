@@ -1,13 +1,14 @@
 .sidebarOption {
     display: flex;
     align-items: center;
-    font-size: 12px;
+    font-size: 22px;
     padding-left: 2px;
     cursor: pointer;
     overflow-y: scroll;
 }
 
 .sidebarOption:hover {
+
     opacity: 0.5;
     background-color: darkblue;
     padding-left: 2px;
@@ -17,6 +18,7 @@
 .sidebarOption__icon {
     padding: 10px;
     font-size: 15px !important;
+
 }
 
 .sidebarOption__channel {
@@ -28,5 +30,5 @@
 }
 
 .sidebarOption > h3 {
-    font-weight: 500;
+    font-weight: 400;
 }

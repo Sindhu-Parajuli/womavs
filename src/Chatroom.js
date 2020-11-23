@@ -9,14 +9,14 @@ import Messages from "./component/Messages/Messages";
 import MetaPanel from "./component/MetaPanel/MetaPanel";
 import MessagesHeader from "./component/Messages/MessagesHeader";
 import MessageForm from "./component/Messages/MessageForm";
-
+import Navigation from "./Navbar"
 
 
 
 function Chatroom  () {
     return (
         <div className="app">
-            <MessagesHeader/>
+            <Navigation/>
             <div className="app__body">
             <SidePanel/>
             <Messages/>

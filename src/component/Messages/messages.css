@@ -2,15 +2,15 @@
     flex: 0.7;
     flex-grow: 1;
     overflow-y: scroll;
-    padding-bottom: 150px;
+    padding-bottom: 170px;
 }
 
 .chat__header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 20px;
-    border-bottom: 1px solid lightgray;
+    padding: 15px;
+    border-bottom: 1px solid orangered;
 }
 .chat__channelName {
     display: flex;

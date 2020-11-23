@@ -1,5 +1,6 @@
 import React from "react";
 import "./Chat.css";
+import firebase from "./firebase";
 
 function Chat({ message, timestamp, user, userImage }) {
     return (
@@ -10,6 +11,8 @@ function Chat({ message, timestamp, user, userImage }) {
                     {user}{" "}
                     <span className="message__timestamp">
             {new Date(timestamp?.toDate()).toUTCString()}
+
+
           </span>
                 </h4>
                 <p>{message}</p>

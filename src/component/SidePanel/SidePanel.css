@@ -1,9 +1,11 @@
 .sidebar {
     color: white;
     flex: 0.3;
+
     background-color: var(--mavcolor);
-    border-top: 1px solid #49274b;
-    max-width: 260px;
+    border-top: 2px solid #49274b;
+
+    max-width: 200px;
 }
 .sidebar__header {
     display: flex;
@@ -13,12 +15,16 @@
 }
 
 .sidebar__info {
+
     flex: 1;
 }
 
 .sidebar__info > h2 {
-    font-size: 30px;
-    color: black;
+    font-size: 50px;
+    color: white;
+
     font-weight: 1000;
-    margin-bottom: 5px;
+    alignment: center;
+
+    margin-bottom: 100px;
 }

@@ -85,7 +85,7 @@ function MessageForm({channelName, channelId}) {
                 fluid
                 name="message"
                 style={{marginBottom: "0.3em"}}
-                style={{marginTop: "0em"}}
+               style={{marginTop: "0em"}}
                 label={
                     <Button
                         //icon={"add"}
@@ -103,7 +103,7 @@ function MessageForm({channelName, channelId}) {
             />
 
 
-            <Button.Group icon widths="2">
+            <Button.Group icon  widths="2" >
                 <Button
                     color="orange"
                     content="Add Reply"
@@ -111,12 +111,14 @@ function MessageForm({channelName, channelId}) {
                     icon="edit"
                     onClick={sendMessage}
                 />
+
                 <Button
                     color="blue"
                     content="Upload Media"
                     labelPosition="right"
                     icon="cloud upload"
                 />
+
             </Button.Group>
         </Segment>
     );

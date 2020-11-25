@@ -4,6 +4,13 @@ import {useHistory} from "react-router-dom";
 import firebase from "./firebase.js";
 import AnnouncementPost from "./Announcementpost";
 import Navigation from "./Navbar";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import TextField from "@material-ui/core/TextField";
+import DialogActions from "@material-ui/core/DialogActions";
+import {Button} from "@material-ui/core";
+import Dialog from "@material-ui/core/Dialog";
 
 
 const Announcement = (logout) => {
@@ -17,23 +24,7 @@ const Announcement = (logout) => {
     const [myname, setmyName] = useState([]);
     const [user, setUser] = useState('');
 
-    const redirectToAboutUsPage = () => {
-        history.push("/about")
-    }
 
-    const redirectToAnnouncementPage = () => {
-        history.push("/announcement")
-    }
-
-    const redirectTochatroomPage = () => {
-        history.push("/chatroom")
-    }
-    const redirectToProfilePage = () => {
-        history.push("/profile")
-    }
-    const redirectToResourcesPage = () => {
-        history.push("/resources")
-    }
     const signout = () => {
         firebase.auth().signOut().then(() => {
                 //this.store.dispatch('clearData')
@@ -63,7 +54,11 @@ const Announcement = (logout) => {
             .orderBy("timestamp", "desc")
             .where("timestamp", ">=", firebase.firestore.Timestamp.fromDate(date))
             .onSnapshot((snapshot) => {
-                setPost(snapshot.docs.map((doc) => doc.data()))
+                setPost(snapshot.docs.map(doc => ({
+
+                    id: doc.id,
+                    post:  doc.data()
+                })))
                 console.log(posts)
             })
     }, [])
@@ -80,7 +75,8 @@ const Announcement = (logout) => {
                     timestamp: firebase.firestore.FieldValue.serverTimestamp(),
                     userimage: usr.photoURL,
                     username: usr.displayName,
-                    title: posttitle
+                    title: posttitle,
+                    email: usr.email
                 })
             } else {
                 // No user is signed in.
@@ -120,13 +116,15 @@ const Announcement = (logout) => {
                     </div>
 
                     <div className="card px-3 py-4 " style={{marginTop: 20}}>
-                        {posts.map(post => (
+                        {posts.map(({post,id})=>(
                             <AnnouncementPost
                                 username={post.username}
                                 timestamp={post.timestamp}
                                 userImage={post.userimage}
                                 post={post.post}
                                 title={post.title}
+                                email ={post.email}
+                                id={id}
                             />
                         ))}
 

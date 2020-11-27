@@ -5,6 +5,14 @@ import Post from "./Post"
 import Navigation from "./Navbar"
 import {firestore} from "firebase";
 import * as admin from "firebase";
+import Dialog from "@material-ui/core/Dialog";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import TextField from "@material-ui/core/TextField";
+import DialogActions from "@material-ui/core/DialogActions";
+import {Button} from "@material-ui/core";
+import Check from "./check";
 
 
 const Homepage = (logout) => {
@@ -16,12 +24,13 @@ const Homepage = (logout) => {
     const [mydata, setMydata] = useState([]);
     const [myname, setmyName] = useState([]);
     const [user, setUser] = useState('');
-    const [check, setCheck] = useState('');
+    const [check, setCheck] = useState();
+    const [open, setOpen] = useState(false);
 
 
     const signout = () => {
         firebase.auth().signOut().then(() => {
-                //this.store.dispatch('clearData')
+
                 history.push("/Signin");
             }
         );
@@ -32,58 +41,38 @@ const Homepage = (logout) => {
         firebase.auth().onAuthStateChanged(function (usr) {
             if (usr) {
                 // User is signed in.
-                setUser(usr);
-
-                // check if account is disabled
-                const docRef = firebase.firestore().collection("watchList").where("email", "==", 'troll@mavs.uta.edu')
+                setUser(usr)
+                const docRef = firebase.firestore().collection("watchList").where("email", "==", usr.email)
                 docRef.get().then(function (response) {
                     if (!response.empty) {
-                        response.docs.forEach((doc) => {
-                            firebase.firestore().collection("watchList").where("email", "==", 'troll@mavs.uta.edu').onSnapshot((snapshot) => {
-                                setCheck(snapshot.docs.map((doc) =>
+                        setCheck(response.docs.map((doc) =>
                                     doc.data()))
-                            });
-                        })
                     }
-                })
+                            });
+
+
+
+                        //grabs posts items from database and places them in our  post array
+                        firebase.firestore().collection('posts')
+                            .orderBy("timestamp", "asc")
+                            .onSnapshot((snapshot) => {
+                                setPost(snapshot.docs.map(doc => ({
+                                    id: doc.id,
+                                    post: doc.data()
+                                })));
+                                console.log(posts)
+                            })
             } else {
                 // No user is signed in.
                 signout()
             }
 
         })
+    },[])
 
-        //grabs posts items from database and places them in our  post array
-        firebase.firestore().collection('posts')
-            .orderBy("timestamp", "asc")
-            .onSnapshot((snapshot) => {
-                setPost(snapshot.docs.map(doc => ({
-                    id: doc.id,
-                    post: doc.data()
-                })));
-                console.log(posts)
-            })
-    }, [])
-
-
-    useEffect(() => {
-
-        firebase.auth().onAuthStateChanged(function (usr) {
-            if (usr) {
-                console.log("check")
-                if (check) {
-                    console.log(check[0].strikes)
-                    if (check[0].strikes >= 3) {
-                        usr.updatePassword("1DSAaC0nT")
-                    }
-                }
-            }
-        })
-    })
-
-
+    console.log(check)
     const savePost = function (user) {
-        console.log(user.photoURL)
+
 
 
         firebase.auth().onAuthStateChanged(function (usr) {
@@ -106,11 +95,16 @@ const Homepage = (logout) => {
     }
 
 
-
-
-
     return (
         <div>
+            {(check)?(
+                <Check
+                    check={check[0].strikes}
+                    pass={""}
+                />
+            ):(<div/>)}
+
+
             {user ? (
                 <div style={{background: "rgb(255,250,250)"}}>
                     <Navigation/>

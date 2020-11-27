@@ -26,12 +26,21 @@ const AnnouncementPost = ({username, timestamp, userImage, post, title, id, emai
         firebase.auth().onAuthStateChanged(function (usr) {
             if (usr) {
 
-                firebase.firestore().collection("reports").doc("M0x2Pis5urIIewEg3eVA").collection('reports').add({
+                const docRefc =  firebase.firestore().collection("reports").doc("M0x2Pis5urIIewEg3eVA").collection('postsreported').doc(id)
+                docRefc.set({email:email,id:id,is_comment:0})
+                docRefc.get().then(function (response) {
+                })
+
+
+                firebase.firestore().collection("reports").doc("M0x2Pis5urIIewEg3eVA").collection('postsreported').doc(id)
+                    .collection("complaints").add({
                     comment: rcomment,
                     timestamp: firebase.firestore.FieldValue.serverTimestamp(),
                     email: email,
                     postId: id,
+                    commentId:""
                 })
+
 
                 const docRef = firebase.firestore().collection("watchList").where("email", "==", email)
 

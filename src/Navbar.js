@@ -29,7 +29,6 @@ const Navigation = ()=>{
 
             }
         })
-        console.log("Navbar")
         console.log(admins)
         var e;
         for (e of admins){
@@ -38,14 +37,13 @@ const Navigation = ()=>{
                 setStatus(1)
             }
         }
-        console.log(admin)
+
         return
     },[email])
-    console.log(admins)
+
     const redirectToAnnouncementPage = () => {
         history.push("/announcement")
     }
-
 
     const redirectTochatroomPage = () => {
         history.push("/chatroom")
@@ -79,7 +77,7 @@ const Navigation = ()=>{
                 <img src={capture} width="60" height="60"/>
             </a>
 
-            <div className="topnav" id="myTopnav" style={{width: 820, margin: '0 auto'}}>
+            <div className="topnav" id="myTopnav" style={{width: "64%", margin: '0 auto'}}>
                 <a href="/homepage">Home</a>
                 <a onClick={redirectTochatroomPage}>Chatrooms</a>
                 <a onClick={redirectToAnnouncementPage}>Announcement</a>
@@ -87,10 +85,10 @@ const Navigation = ()=>{
                 <a onClick={redirectToProfilePage}>My Account</a>
                 <a onClick={signout}>Logout</a>
                 <a onClick={redirectToAboutUsPage}>About Us</a>
-                {admin == 1 ?(<a>
-                    <GavelTwoToneIcon  fontSize={"large"} style={ {width:30,height:18,marginLeft:0, paddingLeft:0,color:"rgb(234,4,16)"}}
-                       onClick={redirectToAdminPage}></GavelTwoToneIcon>
-                </a>
+                {admin == 1 ?(
+                    <a style={ {color:"rgb(143,33,39)"}}
+                       onClick={redirectToAdminPage}>Admin</a>
+
                 ):(<div/>)}
 
 

@@ -19,8 +19,15 @@ const Post = ({pst_id, username, timestamp, userImage, post, email}) => {
     const [open, setOpen] = useState(false);
     const [rcomment, setReportComment] = useState("")
     const [commentID, setCommentID] = useState("")
+    const [reportUser, setReportUser] = useState({
+        username: "",
+        email: "",
+        posORcom:0,
+        id:""
+    })
+    const [docId, setdocID] = useState("")
 
-
+console.log(username)
     const changeHide = () => {
         setHidecom(true);
     }
@@ -34,10 +41,18 @@ const Post = ({pst_id, username, timestamp, userImage, post, email}) => {
         firebase.auth().onAuthStateChanged(function (usr) {
             if (usr) {
 
-                firebase.firestore().collection("reports").doc("3AfrheZxjj44kpnESOsG").collection('reports').add({
+//if post has never been reported on add it to collection
+               const docRefc = firebase.firestore().collection("reports").doc("3AfrheZxjj44kpnESOsG").collection('postsreported').doc(reportUser.id)
+                docRefc.set({email:reportUser.email,id:pst_id,is_comment:reportUser.posORcom})
+                docRefc.get().then(function (response) {
+                })
+
+
+                firebase.firestore().collection("reports").doc("3AfrheZxjj44kpnESOsG").collection('postsreported').doc(reportUser.id)
+                    .collection("complaints").add({
                     comment: rcomment,
                     timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-                    email: email,
+                    email: reportUser.email,
                     postId: pst_id,
                     commentId: commentID
                 })
@@ -112,9 +127,8 @@ const Post = ({pst_id, username, timestamp, userImage, post, email}) => {
     };
     return (
         <div>
-
             <Dialog open={open} aria-labelledby="form-dialog-title">
-                <DialogTitle id="form-dialog-title">Report User {username}</DialogTitle>
+                <DialogTitle id="form-dialog-title">Report User {reportUser.username} </DialogTitle>
                 <DialogContent>
                     <DialogContentText>
                         Comment on report
@@ -145,7 +159,10 @@ const Post = ({pst_id, username, timestamp, userImage, post, email}) => {
                 <div className="card px-3 py-4 " style={{marginTop: 20}}>
                     <div style={{width: "50%", paddingLeft: "85%"}}>
                         <ReportIcon titleAccess={"Report User"} fontSize={"large"} style={{color: "rgb(239,145,44)"}}
-                                    onClick={() => setOpen(true)}></ReportIcon>
+                                    onClick={() => {
+                                        setOpen(true);
+                                        setReportUser({username: username, email: email,posORcom:0,id: pst_id})
+                                    }}></ReportIcon>
                     </div>
                     <div className={"row"} style={{marginLeft: 5}}>
                         <Avatar src={userImage}></Avatar>
@@ -191,6 +208,7 @@ const Post = ({pst_id, username, timestamp, userImage, post, email}) => {
                                                         style={{color: "rgb(239,145,44)"}} onClick={() => {
                                                 setOpen(true);
                                                 setCommentID(id)
+                                                setReportUser({username: cmnt.username, email: cmnt.email,posORcom:1,id:id})
                                             }}></ReportIcon>
                                         </div>
                                         <CommentContent>

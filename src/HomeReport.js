@@ -132,7 +132,7 @@ console.log(comment_id)
 
                                 <div>
                                     <div className={"row"} style={{marginLeft: 5}}>
-                                        <Avatar src={post.userImage}></Avatar>
+                                        <Avatar src={post.userimage}></Avatar>
                                         <p>{new Date(post.timestamp?.toDate()).toUTCString()}</p>
                                     </div>
                                     <div id={"post_header"}>

@@ -66,7 +66,23 @@ const Admin = () => {
                 )
             }
         })
+//reinstate deleted members
+        const docRefd = firebase.firestore().collection("deleteduser").where("email", "==", email)
+        docRef.get().then(function (response){
+            response.docs.forEach(function (doc) {
+                const dusr =doc.data();
+                firebase.auth().createUserWithEmailAndPassword(dusr.email, dusr.pass).then(function ()
+                {   //add user's username and default profile pic to database
+                    firebase.auth().onAuthStateChanged((usr) => {
+                        usr.updateProfile({
+                            displayName: email.substring(0,email.indexOf("@")),
+                            photoURL: "https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png",
+                        }).catch(err=>{
+                            console.log(err);
+                        })
 
+                    })})
+        })})
     }
     const handleHomeReportSetup = (email) => {
 

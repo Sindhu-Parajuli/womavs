@@ -53,9 +53,9 @@ const Signin = () => {
 
                         //Make sure users email is verified before they signin
                         if (usr.emailVerified === false) {
-                            alert("Email Not Verified! Please check your email for the verification link");
 
                             usr.sendEmailVerification().then(function() {
+                                alert("Email Not Verified! Please check your email for the verification link");
                             }).catch(function(error) {
                                 // An error happened.
                             });

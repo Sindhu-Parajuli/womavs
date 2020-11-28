@@ -15,6 +15,7 @@ const ReportPost = ({complaint, timestamp}) => {
                     <div className={"container"}>
                         <div className={"row"}>
                             <div className={"col-12 col-md-8"}>
+                                <h5>{new Date(timestamp?.toDate()).toUTCString()}</h5>
                                 <p style={{color:"black",marginRight:5}}>{complaint}</p>
                             </div>
 

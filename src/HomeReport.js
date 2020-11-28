@@ -18,11 +18,11 @@ const HomeReport = ({post_id, comment_id, is_comment,email}) => {
     const [open, setOpen] = useState(false);
     const [report, setReport] = useState([]);
 
-
+console.log(comment_id)
     useEffect(() => {
         firebase.auth().onAuthStateChanged(function (usr) {
             if (usr) {
-                if (is_comment === 1) {
+                if (comment_id != "") {
                     const docRefc = firebase.firestore().collection("posts").doc(post_id).collection("comments").doc(comment_id)
                     docRefc.get().then(function (response) {
                         if (response.exists) {
@@ -56,8 +56,8 @@ const HomeReport = ({post_id, comment_id, is_comment,email}) => {
             if (usr) {
  if(is_comment===1)
  {
-     firebase.firestore().collection("reports").doc("3AfrheZxjj44kpnESOsG").collection('postsreported').doc(comment_id)
-         .collection("complaints").get().then(function (response) {
+     firebase.firestore().collection("reports").doc("3AfrheZxjj44kpnESOsG").collection('postsreported').doc(post_id)
+         .collection("comments").doc(comment_id).collection("complaints").get().then(function (response) {
          if(!response.empty){
              setReport(response.docs.map(doc => (doc.data())))
              // console.log(response)
@@ -102,7 +102,6 @@ const HomeReport = ({post_id, comment_id, is_comment,email}) => {
                            <ReportPost
                                timestamp={report.timestamp}
                                complaint={report.comment}
-
                            />
 
                        ))}

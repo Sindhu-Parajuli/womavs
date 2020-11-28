@@ -54,7 +54,7 @@ const Homepage = (logout) => {
 
                         //grabs posts items from database and places them in our  post array
                         firebase.firestore().collection('posts')
-                            .orderBy("timestamp", "asc")
+                            .orderBy("timestamp", "desc")
                             .onSnapshot((snapshot) => {
                                 setPost(snapshot.docs.map(doc => ({
                                     id: doc.id,

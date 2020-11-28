@@ -22,12 +22,12 @@ const Post = ({pst_id, username, timestamp, userImage, post, email}) => {
     const [reportUser, setReportUser] = useState({
         username: "",
         email: "",
-        posORcom:0,
-        id:""
+        posORcom: 0,
+        id: ""
     })
     const [docId, setdocID] = useState("")
 
-console.log(username)
+    console.log(username)
     const changeHide = () => {
         setHidecom(true);
     }
@@ -40,27 +40,45 @@ console.log(username)
 
         firebase.auth().onAuthStateChanged(function (usr) {
             if (usr) {
-
-//if post has never been reported on add it to collection
-               const docRefc = firebase.firestore().collection("reports").doc("3AfrheZxjj44kpnESOsG").collection('postsreported').doc(reportUser.id)
-                docRefc.set({email:reportUser.email,id:pst_id,is_comment:reportUser.posORcom})
-                docRefc.get().then(function (response) {
+                //if post has never been reported on add it to collection
+                const docRefp = firebase.firestore().collection("reports").doc("3AfrheZxjj44kpnESOsG").collection('postsreported').doc(pst_id)
+                docRefp.set({email: email,comment_id:"", post_id: pst_id,is_comment:0})
+                docRefp.get().then(function (response) {
                 })
+                if (reportUser.posORcom == 0) {
 
 
-                firebase.firestore().collection("reports").doc("3AfrheZxjj44kpnESOsG").collection('postsreported').doc(reportUser.id)
-                    .collection("complaints").add({
-                    comment: rcomment,
-                    timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-                    email: reportUser.email,
-                    postId: pst_id,
-                    commentId: commentID
-                })
+
+                    firebase.firestore().collection("reports").doc("3AfrheZxjj44kpnESOsG").collection('postsreported').doc(pst_id)
+                        .collection("complaints").add({
+                        comment: rcomment,
+                        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+                        email: reportUser.email,
+
+                    })
+
+                }else{
+                    // report for a comment
+                    //if comment has never been reported on add it to collection
+                    const docRefc = firebase.firestore().collection("reports").doc("3AfrheZxjj44kpnESOsG").collection('postsreported').doc(pst_id).collection("comments").doc(commentID)
+                    docRefc.set({email: reportUser.email, comment_id: commentID,is_comment:1,post_id: pst_id})
+                    docRefc.get().then(function (response) {
+                    })
+                    firebase.firestore().collection("reports").doc("3AfrheZxjj44kpnESOsG").collection('postsreported').doc(pst_id)
+                        .collection("comments").doc(commentID).collection("complaints").add({
+                        comment: rcomment,
+                        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+                        email: reportUser.email,
+                        comment_id: commentID,
+                        post_id: pst_id
+                    })
+
+                }
 
 
-                const docRef = firebase.firestore().collection("watchList").where("email", "==", email)
+                const docRef = firebase.firestore().collection("watchList").where("email", "==", reportUser.email)
 
-                docRef.get().then(function (response) {
+                docRef.get().then(function (response){
 
                     if (!response.empty) {
 
@@ -72,7 +90,7 @@ console.log(username)
                         )
                     } else {
                         firebase.firestore().collection("watchList").add({
-                            email: email,
+                            email: reportUser.email,
                             strikes: 1
                         })
                     }
@@ -87,7 +105,7 @@ console.log(username)
         let sbc;
 
         if (pst_id) {
-            sbc = firebase.firestore().collection("posts").doc(pst_id).collection("comments").orderBy("timestamp", "asc")
+            sbc = firebase.firestore().collection("posts").doc(pst_id).collection("comments").orderBy("timestamp", "desc")
                 .onSnapshot((snapshot) => {
                     setCmnts(snapshot.docs.map(doc => ({
                         id: doc.id,
@@ -161,7 +179,7 @@ console.log(username)
                         <ReportIcon titleAccess={"Report User"} fontSize={"large"} style={{color: "rgb(239,145,44)"}}
                                     onClick={() => {
                                         setOpen(true);
-                                        setReportUser({username: username, email: email,posORcom:0,id: pst_id})
+                                        setReportUser({username: username, email: email, posORcom: 0, id: pst_id})
                                     }}></ReportIcon>
                     </div>
                     <div className={"row"} style={{marginLeft: 5}}>
@@ -208,7 +226,12 @@ console.log(username)
                                                         style={{color: "rgb(239,145,44)"}} onClick={() => {
                                                 setOpen(true);
                                                 setCommentID(id)
-                                                setReportUser({username: cmnt.username, email: cmnt.email,posORcom:1,id:id})
+                                                setReportUser({
+                                                    username: cmnt.username,
+                                                    email: cmnt.email,
+                                                    posORcom: 1,
+                                                    id: id
+                                                })
                                             }}></ReportIcon>
                                         </div>
                                         <CommentContent>

@@ -15,6 +15,8 @@ const Admin = () => {
     const [viewHomePageReport, setViewHomePageReport] = useState([]);
     const [viewAnnouncementPageReport, setViewAnnouncementPageReport] = useState([]);
     const [email, setEmail] = useState("");
+    const [posts, setPosts] = useState([]);
+    const [comments, setComments] = useState([]);
 
 
     const signout = () => {
@@ -63,7 +65,7 @@ const Admin = () => {
                     }
                 )
             }
-    })
+        })
 
     }
     const handleHomeReportSetup = (email) => {
@@ -71,25 +73,73 @@ const Admin = () => {
         console.log(email)
         setEmail(email)
         firebase.auth().onAuthStateChanged(function (usr) {
-            //get reports from home page
+            //get watchList memebers rnpm start
+            // reports on posts from home page
+//POSTS
             const docRefc = firebase.firestore().collection('reports').doc("3AfrheZxjj44kpnESOsG")
                 .collection("postsreported")
-                .where("email", "==", email)
-            docRefc.get().then(function (response) {
+            docRefc.where("email", "==", email).get()
+                .then(function (response) {
+                    if (!response.empty) {
+                        response.forEach(function (doc) {
+
+                            firebase.firestore().collection('reports').doc("3AfrheZxjj44kpnESOsG")
+                                .collection("postsreported").doc(doc.id)
+                                .collection("complaints").get()
+                                .then(collection => {
+                                    //check if post have complaints
+                                    if (collection.docs.length > 0) {
+                                        //collect each watchList users reported post
+                                        //setPosts(posts => posts.concat( response.docs.map(doc => doc.data())))
+                                        setViewHomePageReport(hReport => hReport.concat(response.docs.map(doc => doc.data())))
+
+                                    }
+                                })
+                        })
+
+                    }
+                })
+
+
+//COMMENTS
+            firebase.firestore().collection('reports').doc("3AfrheZxjj44kpnESOsG")
+                .collection("postsreported").get().then(function (response) {
                 if (response.empty) {
-                    console.log("HMM")
+
                 } else {
                     console.log(response)
-                    setViewHomePageReport(response.docs.map(doc => ({
-                        type: 1,
-                        hReport: doc.data()
+                    response.forEach(function (doc) {
+                        // doc.data() is never undefined for query doc snapshots
+                        console.log(doc.id, " => ", doc.data());
 
-                    })))
+                        //collect each watchList users reported comments
+                        firebase.firestore().collection('reports').doc("3AfrheZxjj44kpnESOsG")
+                            .collection("postsreported").doc(doc.id).collection("comments")
+                            .where("email", "==", email).get().then(function (response) {
+                            if (!response.empty) {
+                                //setComments(comments => comments.concat( response.docs.map(doc => doc.data())))
+                                setViewHomePageReport(hReport => hReport.concat(response.docs.map(doc => doc.data())))
+                            } else {
+                                console.log("wrong")
+                            }
+
+                        })
+
+
+                        //setViewHomePageReport(hReport=>[...hReport,snapshot.docs.map(doc=>doc.data())]))
+                    });
+
+                    //setViewHomePageReport(hReport=>[...hReport,comment])
+                    //setViewHomePageReport({hReport:comments})
                 }
             })
-
         })
     }
+
+    console.log("posts")
+    console.log(posts)
+    console.log("comments")
+    console.log(comments)
     console.log("viewHomePageReport")
     console.log(viewHomePageReport)
 
@@ -155,46 +205,48 @@ const Admin = () => {
                                     <button>Back</button>
                                 </a>
                                 <button onClick={handleStrikeRemoval}>Dimiss Strikes</button>
-                                <div className="card" style={{width: "50%", marginBottom: 10, marginTop: 10}}>
-                                    <h3> {email}</h3>
+                                <div className="card" style={{width: "96%", marginBottom: 10, marginTop: 10}}>
+                                    <h3 style={{width: "95%"}}> {email}</h3>
                                 </div>
-                                <div className="card" style={{width: "96%",marginBottom:10}}>
+                                <div className="card" style={{width: "96%", marginBottom: 10}}>
                                     <div className="card-header">
                                         Reported Messages
                                     </div>
-                                    <div className="card" style={{width: "100%",marginBottom:10}}>
+                                    <div className="card" style={{width: "100%", marginBottom: 10}}>
                                         <h6 style={{paddingTop: 10, paddingLeft: 5}} className="card-subtitle mb-2 ">
                                             Homepage Feed
                                         </h6>
 
-                                        {viewHomePageReport.map(({type, hReport}) => (
+                                       {viewHomePageReport.map((hReport) => (
                                             <Report
-                                                messagetype={type}
+                                                messagetype={1}
                                                 is_comment={hReport.is_comment}
-                                                id={hReport.id}
+                                                id={hReport.post_id}
                                                 email={hReport.email}
+                                                c_id={hReport.comment_id}
                                             />
                                         ))}
                                     </div>
                                 </div>
                                 <div>
-                                <div className="card" style={{width: "96%"}}>
-                                    <div className="card" style={{width: "100%"}}>
-                                        <h6 style={{paddingTop: 10, paddingLeft: 5}} className="card-subtitle mb-2 ">
-                                            Announcement Feed
-                                        </h6>
+                                    <div className="card" style={{width: "96%"}}>
+                                        <div className="card" style={{width: "100%"}}>
+                                            <h6 style={{paddingTop: 10, paddingLeft: 5}}
+                                                className="card-subtitle mb-2 ">
+                                                Announcement Feed
+                                            </h6>
 
-                                        {viewAnnouncementPageReport.map(({type, aReport}) => (
-                                            <Report
-                                                messagetype={type}
-                                                is_comment={aReport.is_comment}
-                                                id={aReport.id}
-                                                email={aReport.email}
-                                            />
-                                        ))}
+                                            {viewAnnouncementPageReport.map(({type, aReport}) => (
+                                                <Report
+                                                    messagetype={type}
+                                                    is_comment={aReport.is_comment}
+                                                    id={aReport.id}
+                                                    email={aReport.email}
+                                                />
+                                            ))}
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
                             </div>
                         )}
                     </div>

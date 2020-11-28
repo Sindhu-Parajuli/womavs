@@ -14,32 +14,28 @@ import AnnouncementReport from "./AnnouncementReport";
 import FindInPageIcon from '@material-ui/icons/FindInPage';
 import HomeReport from "./HomeReport";
 
-const Report = ({messagetype, id, is_comment, email}) => {
+const Report = ({messagetype, id, is_comment, email, c_id}) => {
 
     const [report, setReport] = useState([]);
+    const [comments, setComment] = useState([]);
     const [areport, setAReport] = useState([]);
-    console.log(report)
-    console.log(report[0])
-//get ori post
+
+
     useEffect(() => {
         firebase.auth().onAuthStateChanged(function (usr) {
             if (usr) {
                 //home feed
                 if (messagetype === 1) {
-                    console.log("report")
-                    var Refc = firebase.firestore().collection("reports").doc("3AfrheZxjj44kpnESOsG").collection('postsreported').where("email", "==", email)
-                    Refc.get().then(function (response) {
-
-                        if (!response.empty) {
-                            firebase.firestore().collection("reports").doc("3AfrheZxjj44kpnESOsG").collection('postsreported').doc(response.docs[0].id)
-                                .collection("complaints")
-                                .onSnapshot((snapshot) => {
-                                    setReport(snapshot.docs.map(doc => (doc.data())))
-                                })
-                            // console.log(response)
-                        } else
-                            console.log("report")
-                    })
+                    //GET REPORTED POST (this is used to get the original post watchlist member created)
+                    //get watchList memebers reported posts
+          /*          console.log(id)
+                    firebase.firestore().collection("reports").doc("3AfrheZxjj44kpnESOsG")
+                        .collection('postsreported').where("id","==",id).
+                        .collection("complaints")
+                        .onSnapshot((snapshot) => {
+                            setReport(snapshot.docs.map(doc => (doc.data())))
+                        })*/
+                    // console.log(response)
 
 
 //announcement feed
@@ -68,16 +64,14 @@ const Report = ({messagetype, id, is_comment, email}) => {
 
         {/*homepage report*/}
         {messagetype == 1 ? (<div>
-                {(report[0]) ? (
-                    <HomeReport
-                        comment_id={report[0].commentId}
-                        post_id={report[0].postId}
-                        is_comment={is_comment}
 
-                    />
-                ) : (
-                    <div/>
-                )}
+                <HomeReport
+                    post_id={id}
+                    is_comment={is_comment}
+                    comment_id={c_id}
+                />
+
+
 
 
             </div>
@@ -88,12 +82,12 @@ const Report = ({messagetype, id, is_comment, email}) => {
                 {(messagetype == 2) ? (
                     <div>
                         <AnnouncementReport
-title={areport.title}
-post={areport.post}
-timestamp={areport.timestamp}
-userImage={areport.userimage}
-username={areport.username}
-id={id}
+                            title={areport.title}
+                            post={areport.post}
+                            timestamp={areport.timestamp}
+                            userImage={areport.userimage}
+                            username={areport.username}
+                            id={id}
                         />
                     </div>
 

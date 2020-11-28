@@ -23,7 +23,7 @@ const AnnouncementReport = ({title,username,post, userImage,timestamp,id}) => {
             if (usr) {
 
                 firebase.firestore().collection("reports").doc("M0x2Pis5urIIewEg3eVA").collection('postsreported').doc(id)
-                    .collection("complaints").get().then(function (response) {
+                    .collection("complaints").orderBy("timestamp", "desc").get().then(function (response) {
                     if(!response.empty){
                         setReport(response.docs.map(doc => (doc.data())))
                         console.log(response)

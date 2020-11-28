@@ -71,7 +71,7 @@ console.log(comment_id)
 
 
      firebase.firestore().collection("reports").doc("3AfrheZxjj44kpnESOsG").collection('postsreported').doc(post_id)
-         .collection("complaints").get().then(function (response) {
+         .collection("complaints").orderBy("timestamp","desc").get().then(function (response) {
          if(!response.empty){
              setReport(response.docs.map(doc => (doc.data())))
               console.log(response)

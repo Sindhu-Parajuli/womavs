@@ -15,6 +15,7 @@ const Admin = () => {
     const [viewHomePageReport, setViewHomePageReport] = useState([]);
     const [viewAnnouncementPageReport, setViewAnnouncementPageReport] = useState([]);
     const [email, setEmail] = useState("");
+    const [hide, setHide] = useState(0);
     const [posts, setPosts] = useState([]);
     const [comments, setComments] = useState([]);
 
@@ -66,23 +67,34 @@ const Admin = () => {
                 )
             }
         })
+
 //reinstate deleted members
         const docRefd = firebase.firestore().collection("deleteduser").where("email", "==", email)
-        docRef.get().then(function (response){
+        docRefd.get().then(function (response) {
             response.docs.forEach(function (doc) {
-                const dusr =doc.data();
-                firebase.auth().createUserWithEmailAndPassword(dusr.email, dusr.pass).then(function ()
-                {   //add user's username and default profile pic to database
+                const dusr = doc.data();
+                const did = doc.id
+                console.log(dusr)
+                firebase.auth().createUserWithEmailAndPassword(dusr.email, dusr.password).then(function () {   //add user's username and default profile pic to database
                     firebase.auth().onAuthStateChanged((usr) => {
                         usr.updateProfile({
-                            displayName: email.substring(0,email.indexOf("@")),
+                            displayName: email.substring(0, email.indexOf("@")),
                             photoURL: "https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png",
-                        }).catch(err=>{
+                        }).catch(err => {
                             console.log(err);
+                        }).then(function () {
+                            setHide(1)
+                            firebase.firestore().collection("deleteduser").doc(did).delete().then(function () {
+                                alert("user reinstated")
+                                window.location.href = "/admin"
+                            })
+
                         })
 
-                    })})
-        })})
+                    })
+                })
+            })
+        })
     }
     const handleHomeReportSetup = (email) => {
 
@@ -106,7 +118,6 @@ const Admin = () => {
                                     //check if post have complaints
                                     if (collection.docs.length > 0) {
                                         //collect each watchList users reported post
-                                        //setPosts(posts => posts.concat( response.docs.map(doc => doc.data())))
                                         setViewHomePageReport(hReport => hReport.concat(response.docs.map(doc => doc.data())))
 
                                     }
@@ -125,28 +136,20 @@ const Admin = () => {
                 } else {
                     console.log(response)
                     response.forEach(function (doc) {
-                        // doc.data() is never undefined for query doc snapshots
-                        console.log(doc.id, " => ", doc.data());
 
                         //collect each watchList users reported comments
                         firebase.firestore().collection('reports').doc("3AfrheZxjj44kpnESOsG")
                             .collection("postsreported").doc(doc.id).collection("comments")
                             .where("email", "==", email).get().then(function (response) {
                             if (!response.empty) {
-                                //setComments(comments => comments.concat( response.docs.map(doc => doc.data())))
                                 setViewHomePageReport(hReport => hReport.concat(response.docs.map(doc => doc.data())))
                             } else {
                                 console.log("wrong")
                             }
 
                         })
-
-
-                        //setViewHomePageReport(hReport=>[...hReport,snapshot.docs.map(doc=>doc.data())]))
                     });
 
-                    //setViewHomePageReport(hReport=>[...hReport,comment])
-                    //setViewHomePageReport({hReport:comments})
                 }
             })
         })
@@ -187,90 +190,93 @@ const Admin = () => {
 
     return (
         <div className="background_image1">
-            <div className="container">
-                <Navigation/>
-                <h6>ADMIN</h6>
-                <div className="row">
+            {hide === 0 ? (
+                <div className="container">
+                    <Navigation/>
+                    <h6>ADMIN</h6>
+                    <div className="row">
 
-                    <div className="col-sm" style={{color: "black"}}>
-                        {viewReport == false ? (
-                            <div className="col col-lg-4" style={{paddingBottom: "10%"}}>
-                                <div className="card" style={{width: "20rem", color: "black"}}>
-                                    <div className="card-header">
-                                        Watch List
-                                    </div>
-                                    <ul className="list-group list-group-flush" style={{color: "black"}}>
-                                        {watchUsers.map(({watchUser, id}) => (
-                                            <a href={"#"}>
-                                                <li className="list-group-item" onClick={() => {
-                                                    setViewReport(true);
-                                                    handleHomeReportSetup(watchUser.email)
-                                                    handleAnnouncementReportSetup(watchUser.email)
-                                                }}><FingerprintIcon
-                                                    style={{color: severity(watchUser.strikes)}}/>{watchUser.email}
-                                                </li>
-                                            </a>
-                                        ))}
+                        <div className="col-sm" style={{color: "black"}}>
+                            {viewReport == false ? (
+                                <div className="col col-lg-4" style={{paddingBottom: "10%"}}>
+                                    <div className="card" style={{width: "20rem", color: "black"}}>
+                                        <div className="card-header">
+                                            Watch List
+                                        </div>
+                                        <ul className="list-group list-group-flush" style={{color: "black"}}>
+                                            {watchUsers.map(({watchUser, id}) => (
+                                                <a href={"#"}>
+                                                    <li className="list-group-item" onClick={() => {
+                                                        setViewReport(true);
+                                                        handleHomeReportSetup(watchUser.email)
+                                                        handleAnnouncementReportSetup(watchUser.email)
+                                                    }}><FingerprintIcon
+                                                        style={{color: severity(watchUser.strikes)}}/>{watchUser.email}
+                                                    </li>
+                                                </a>
+                                            ))}
 
-                                    </ul>
-                                </div>
-                            </div>
-                        ) : (
-                            <div>
-                                <a href={"admin"}>
-                                    <button>Back</button>
-                                </a>
-                                <button onClick={handleStrikeRemoval}>Dimiss Strikes</button>
-                                <div className="card" style={{width: "96%", marginBottom: 10, marginTop: 10}}>
-                                    <h3 style={{width: "95%"}}> {email}</h3>
-                                </div>
-                                <div className="card" style={{width: "96%", marginBottom: 10}}>
-                                    <div className="card-header">
-                                        Reported Messages
-                                    </div>
-                                    <div className="card" style={{width: "100%", marginBottom: 10}}>
-                                        <h6 style={{paddingTop: 10, paddingLeft: 5}} className="card-subtitle mb-2 ">
-                                            Homepage Feed
-                                        </h6>
-
-                                       {viewHomePageReport.map((hReport) => (
-                                            <Report
-                                                messagetype={1}
-                                                is_comment={hReport.is_comment}
-                                                id={hReport.post_id}
-                                                email={hReport.email}
-                                                c_id={hReport.comment_id}
-                                            />
-                                        ))}
+                                        </ul>
                                     </div>
                                 </div>
+                            ) : (
                                 <div>
-                                    <div className="card" style={{width: "96%"}}>
-                                        <div className="card" style={{width: "100%"}}>
+                                    <a href={"/admin"}>
+                                        <button>Back</button>
+                                    </a>
+                                    <button onClick={handleStrikeRemoval}>Dimiss Strikes</button>
+                                    <div className="card" style={{width: "96%", marginBottom: 10, marginTop: 10}}>
+                                        <h3 style={{width: "95%"}}> {email}</h3>
+                                    </div>
+                                    <div className="card" style={{width: "96%", marginBottom: 10}}>
+                                        <div className="card-header">
+                                            Reported Messages
+                                        </div>
+                                        <div className="card" style={{width: "100%", marginBottom: 10}}>
                                             <h6 style={{paddingTop: 10, paddingLeft: 5}}
                                                 className="card-subtitle mb-2 ">
-                                                Announcement Feed
+                                                Homepage Feed
                                             </h6>
 
-                                            {viewAnnouncementPageReport.map(({type, aReport}) => (
+                                            {viewHomePageReport.map((hReport) => (
                                                 <Report
-                                                    messagetype={type}
-                                                    is_comment={aReport.is_comment}
-                                                    id={aReport.id}
-                                                    email={aReport.email}
+                                                    messagetype={1}
+                                                    is_comment={hReport.is_comment}
+                                                    id={hReport.post_id}
+                                                    email={hReport.email}
+                                                    c_id={hReport.comment_id}
                                                 />
                                             ))}
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                        )}
-                    </div>
-                    <div className="row" style={{height: height}}>
+                                    <div>
+                                        <div className="card" style={{width: "96%"}}>
+                                            <div className="card" style={{width: "100%"}}>
+                                                <h6 style={{paddingTop: 10, paddingLeft: 5}}
+                                                    className="card-subtitle mb-2 ">
+                                                    Announcement Feed
+                                                </h6>
 
+                                                {viewAnnouncementPageReport.map(({type, aReport}) => (
+                                                    <Report
+                                                        messagetype={type}
+                                                        is_comment={aReport.is_comment}
+                                                        id={aReport.id}
+                                                        email={aReport.email}
+                                                    />
+                                                ))}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
+                        </div>
+                        <div className="row" style={{height: height}}>
+
+                        </div>
                     </div>
                 </div>
-            </div>
+            ) : (<div/>)}
         </div>
     )
 }

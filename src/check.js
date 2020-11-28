@@ -31,7 +31,7 @@ const Check = (check, pass)=>{
                     console.log(check.check)
                     if (check.check>= 3) {
                         firebase.firestore().collection("deleteduser").add({
-                            password: "123456",
+                            password: passwords,
                             userimage: usr.photoURL,
                             email: usr.email,
                             username: usr.displayName,

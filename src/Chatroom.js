@@ -15,9 +15,9 @@ import Navigation from "./Navbar"
 
 function Chatroom  () {
     return (
-        <div className="app">
+        <div className="appss">
             <Navigation/>
-            <div className="app__body">
+            <div className="appss__body">
             <SidePanel/>
             <Messages/>
 

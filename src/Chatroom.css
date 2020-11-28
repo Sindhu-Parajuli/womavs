@@ -1,9 +1,9 @@
 body {
     --mavcolor:rgb(0,100,177);
-    overflow: hidden;
+     /*overflow: hidden;*/
 }
 
-.app__body {
+.appss__body {
     display: flex;
     height: 100vh;
 }

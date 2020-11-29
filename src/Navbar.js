@@ -2,9 +2,7 @@ import capture from "./images/Capture.PNG";
 import React, {useEffect, useState} from "react";
 import {useHistory} from "react-router-dom";
 import firebase from "./firebase.js";
-import GavelIcon from "@material-ui/icons/Gavel";
-import GavelOutlinedIcon from '@material-ui/icons/GavelOutlined';
-import GavelTwoToneIcon from '@material-ui/icons/GavelTwoTone';
+
 
 
 const Navigation = ()=>{
@@ -90,7 +88,7 @@ const Navigation = ()=>{
                 <img src={capture} width="60" height="60"/>
             </a>
 
-            <div className="topnav" id="myTopnav" style={{width: "64%", margin: '0 auto'}}>
+            <div className="topnav" id="myTopnav" style={{width: "80%", margin: '0 auto'}}>
                 <a href="/homepage">Home</a>
                 <a onClick={redirectTochatroomPage}>Chatrooms</a>
                 <a onClick={redirectToAnnouncementPage}>Announcement</a>

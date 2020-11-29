@@ -23,46 +23,71 @@ const Check = (check, pass)=>{
     const [email,setEmail] = useState('')
     const[open,setOpen]= useState(false)
     const[sopen,setsOpen]= useState(false)
-    const[passwords,setPassword]= useState(pass)
+    const[passwords,setPassword]= useState("")
+
     useEffect(() => {
         firebase.auth().onAuthStateChanged(function (usr) {
-            if (usr) {
-                if (check) {
-                    console.log(check.check)
-                    if (check.check>= 3) {
+            //alert user of complaint review
+           if(usr){
+        if (check) {
+            console.log(check.check)
+            console.log(passwords)
+            if (check.check>= 3) {
+                firebase.firestore().collection("deleteduser").where("email","==",usr.email).get().then(collection => {
+                    //check if post have user already deleted
+                    if (collection.docs.length == 0) {
+
                         firebase.firestore().collection("deleteduser").add({
-                            password: passwords,
+                            password: "passwords",
                             userimage: usr.photoURL,
                             email: usr.email,
                             username: usr.displayName,
-                        }).then(() => {
-
-                           setsOpen(true)
-                            //alert("Your account has been suspended due to complaint(s). Account reviews take time to be evaluated,so wait 1 day before signing into your account. If complaints are valid this account will be terminated.")
-
                         })
+
+
+
+
+
                     }
-               }
+                    setsOpen(true)
+                })
             }
+        }
+           }
         })
-
-
     },[])
 
 const handleDelete=()=>{
         if(passwords) {
+            //set users password in deleted user access
             firebase.auth().onAuthStateChanged(function (usr) {
+
+                //delete users account
                 firebase.auth().signInWithEmailAndPassword(usr.email, passwords).then(result => {
                     if (usr) {
-                        usr.delete().then(function () {
-                            // User deleted.
-                            signout()
-                        }).catch(function (error) {
-                            // An error happened.
-                            setPassword("")
-                            console.log(error)
-                        });
-                    }
+                        firebase.firestore().collection("deleteduser").where("email","==",usr.email).get().then(function(respone){
+                            if(!respone.empty){
+                                respone.forEach(function (doc) {
+                                    const docRef = firebase.firestore().collection("deleteduser").doc(doc.id)
+                                    docRef.set({password:passwords,userimage: usr.photoURL,
+                                        email: usr.email,
+                                        username: usr.displayName})
+                                    docRef.get().then(function (response) {
+                                        usr.delete().then(function () {
+                                            // User deleted.
+                                            signout()
+                                        }).catch(function (error) {
+                                            // An error happened.
+                                            setPassword("")
+                                            console.log(error)
+                                        });
+                                    })
+
+                                })
+                            }
+                        })
+
+                    }else{sopen(true)}
                 }).catch(function (error) {
                     // An error happened.
                     console.log(error)
@@ -82,7 +107,7 @@ const handleDelete=()=>{
 
         firebase.auth().signOut().then(()=>{
 
-                history.push("/signin");
+            window.location.href = "/signin"
             }
 
         );
@@ -93,7 +118,7 @@ const handleDelete=()=>{
                 <DialogTitle id="form-dialog-title">Alert</DialogTitle>
                 <DialogContent>
                     <DialogContentText>
-                        Your account has been suspended due to complaint(s). Account reviews take time to be evaluated,so wait 1 day before signing into your account. If complaints are valid this account will be terminated.
+                        Your account has been suspended due to complaint(s). Account reviews take time to be evaluated,so wait 1-2 day(s) before signing into your account. If complaints are valid this account will be terminated otherwise please reset password then login.
                     </DialogContentText>
 
                 </DialogContent>

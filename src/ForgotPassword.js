@@ -13,7 +13,7 @@ const ForgotPassword = () => {
 
     //Will have change url when we get this hosted
     const actionCodeSettings = {
-        url: 'https://womavs.firebaseapp.com/homepage',
+        url: 'https://womavs.firebaseapp.com/Signin',
         handleCodeInApp: true
     };
     const redirectToPage = () => {

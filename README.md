@@ -1,17 +1,12 @@
 
 
 
+#Vision                                 
+In this time of social isolation, we need social networks more than ever. The goal of this application is to provide women UTA Mavericks with a lifeline to each other. This application will provide female students with the opportunity to share and care through sharing posts, mentorship, and supporting each other.
 
+#Users
+This application will be used to help female Mavericks. Our intended user audience is the Female Community of UTA.  Our aim is to provide these women with a place to ask questions and share life stories. During the project testing, feedback will be taken from female students who are residing nearby as neighbors or roommates. When the web-app is hosted, the application will be available to more people like classmates, friends, professors, etc which will widen our feedback data. 
 
-
-
-
-
-
-#Vision Statement                                 
-In this time of social isolation, we need social networks more than ever. 
-The goal of this application is to provide women UTA Mavericks with a lifeline to each other. 
-This application will provide female students with the opportunity to share and care through sharing posts, mentorship, and supporting each other.
 
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

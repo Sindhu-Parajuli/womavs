@@ -47,11 +47,11 @@ const Signin = () => {
                         dispatch({
                             type: actionTypes.SET_USER,
                             user: result.user,
-                        });
+                        })
 
 
 
-                        //Make sure users email is verified before they signin
+/*                        //Make sure users email is verified before they signin
                         if (usr.emailVerified === false) {
 
                             usr.sendEmailVerification().then(function() {
@@ -59,10 +59,10 @@ const Signin = () => {
                             }).catch(function(error) {
                                 // An error happened.
                             });
-                        }
-                        else {
+                        }*/
+                        //else {
                             history.push("/homepage")
-                        }
+                        //}
                         // setting email and password to null, if user exists
                         setemail("");
                         setpass("");

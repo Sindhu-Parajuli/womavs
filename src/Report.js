@@ -19,6 +19,8 @@ const Report = ({messagetype, id, is_comment, email, c_id}) => {
     const [report, setReport] = useState([]);
     const [comments, setComment] = useState([]);
     const [areport, setAReport] = useState([]);
+    const [v, setV] = useState(0);
+    const [vh, setVh] = useState(0);
 
 
     useEffect(() => {
@@ -44,6 +46,12 @@ const Report = ({messagetype, id, is_comment, email, c_id}) => {
                     firebase.firestore().collection('announcements').doc(id).get().then(function (response) {
                         if (response.exists) {
                             setAReport(response.data())
+                            setV(1)
+                        }
+                        else{
+                            console.log(areport)
+                            setV(0)
+
                         }
                     })
 
@@ -81,14 +89,17 @@ const Report = ({messagetype, id, is_comment, email, c_id}) => {
 
                 {(messagetype == 2) ? (
                     <div>
-                        <AnnouncementReport
-                            title={areport.title}
-                            post={areport.post}
-                            timestamp={areport.timestamp}
-                            userImage={areport.userimage}
-                            username={areport.username}
-                            id={id}
-                        />
+                        {(v===1)?(
+                            <AnnouncementReport
+                                title={areport.title}
+                                post={areport.post}
+                                timestamp={areport.timestamp}
+                                userImage={areport.userimage}
+                                username={areport.username}
+                                id={id}
+                            />
+                        ):(<div/>)}
+
                     </div>
 
 

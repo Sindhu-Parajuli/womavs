@@ -94,7 +94,12 @@ const Admin = () => {
                     })
                 })
             })
-        })
+
+            alert("Strikes Dismissed")
+            window.location.href = "/admin" })
+        {
+
+            }
     }
     const handleHomeReportSetup = (email) => {
 

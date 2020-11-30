@@ -112,12 +112,7 @@ function MessageForm({channelName, channelId}) {
                     onClick={sendMessage}
                 />
 
-                <Button
-                    color="blue"
-                    content="Upload Media"
-                    labelPosition="right"
-                    icon="cloud upload"
-                />
+
 
             </Button.Group>
         </Segment>

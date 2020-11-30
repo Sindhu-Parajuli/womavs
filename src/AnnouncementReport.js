@@ -9,6 +9,7 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogActions from "@material-ui/core/DialogActions";
 import FindInPageIcon from "@material-ui/icons/FindInPage";
 import ReportPost from "./ReportPost";
+import DeleteIcon from '@material-ui/icons/Delete';
 
 
 const AnnouncementReport = ({title,username,post, userImage,timestamp,id}) => {
@@ -29,6 +30,16 @@ const AnnouncementReport = ({title,username,post, userImage,timestamp,id}) => {
                         console.log(response)
                     }else
                         console.log("report")
+                })
+            }
+        })}
+    const handleDelete =()=>{
+
+        firebase.auth().onAuthStateChanged(function (usr) {
+            if (usr) {
+
+                firebase.firestore().collection('announcements').doc(id).delete().then(function(){
+                    alert("Post deleted.")
                 })
             }
         })}
@@ -92,6 +103,9 @@ const AnnouncementReport = ({title,username,post, userImage,timestamp,id}) => {
                     <hr style={{background: "rgb(245,128,38)"}}/>
                     <div id={"post_header"}>
                         <h4>{post}</h4>
+                        <div style={{width: "50%", paddingLeft:"85%" }}>
+                        <DeleteIcon onClick={handleDelete}  titleAccess={"Delete post"} style={{ color: "red" }}/>
+                        </div>
                     </div>
 
 

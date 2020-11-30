@@ -1,4 +1,14 @@
-##Vision Statement                                 
+
+
+
+
+
+
+
+
+
+
+#Vision Statement                                 
 In this time of social isolation, we need social networks more than ever. 
 The goal of this application is to provide women UTA Mavericks with a lifeline to each other. 
 This application will provide female students with the opportunity to share and care through sharing posts, mentorship, and supporting each other.
